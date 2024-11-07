@@ -82,7 +82,7 @@ const RegistrationForm = () => {
         }}
       >
         <Typography variant="h6" gutterBottom>
-          Registration Form
+          SignUp for Quizee
         </Typography>
         <TextField
           fullWidth
