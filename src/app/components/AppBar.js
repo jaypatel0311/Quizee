@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
             Quizee
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Profile">
               <IconButton
                 onClick={(e) => {
                   router.push("/signup");
