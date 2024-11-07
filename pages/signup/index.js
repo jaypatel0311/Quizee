@@ -1,12 +1,74 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { db } from "../../src/app/config/firebaseConfig";
+import { useRouter } from "next/router";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const RegistrationForm = () => {
-  const [result, setResult] = useState([]);
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [bday, setBday] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        router.push("/");
+      }
+    });
+  }, []);
+
+  const handleSearch = (value) => {
+    let res = [];
+
+    if (!value || value.indexOf("@") >= 0) {
+      res = [];
+    } else {
+      res = ["gmail.com", "yahoo.com", "outlook.com"].map(
+        (domain) => `${value}@${domain}`
+      );
+    }
+  };
+
+  const createUser = async () => {
+    //TODO: Add form validation
+
+    // try {
+    //   const values = await form.validateFields();
+    //   return true;
+    // } catch {
+    //   return;
+    // }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async function (result) {
+        try {
+          await setDoc(doc(db, "users", result.user.uid), {
+            birthdate: bday,
+            CasualGamesPlayed: 0,
+            CasualamesWin: 0,
+            CompetitiveGamesPlayed: 0,
+            CompetitiveGamesWin: 0,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+        sendEmailVerification(auth.currentUser);
+        updateProfile(auth.currentUser, {
+          displayName: username,
+        });
+        router.push("/");
+      })
+      .catch(function (error) {});
+  };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 10 }}>
@@ -65,9 +127,7 @@ const RegistrationForm = () => {
           variant="contained"
           color="primary"
           sx={{ mt: 2 }}
-          onClick={() => {
-            // Handle form submission
-          }}
+          onClick={createUser}
         >
           Register
         </Button>

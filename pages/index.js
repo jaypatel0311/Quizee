@@ -1,11 +1,16 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-// import { auth, db } from "../src/config/firebaseConfig";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { Container, Typography, Paper, Grid2 } from "@mui/material";
+import { app } from "../src/app/config/firebaseConfig";
+
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 export default function Home() {
-  //   const [isauth, setIsAuth] = useState(false);
+  const [isauth, setIsAuth] = useState(false);
   const [userData, setUserData] = useState({
     CasualGamesPlayed: 0,
     CasualGamesWin: 0,
@@ -13,19 +18,17 @@ export default function Home() {
     CompetitiveGamesWin: 0,
   });
 
-  //   useEffect(() => {
-  //     const getUserData = async () => {
-  //       const user = await (
-  //         await db.collection("users").doc(auth.currentUser.uid).get()
-  //       ).data();
-  //       setUserData(user);
-  //     };
-
-  //     if (auth.currentUser) {
-  //       setIsAuth(true);
-  //       getUserData();
-  //     }
-  //   }, []);
+  useEffect(() => {
+    const getUserData = async () => {
+      const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+      if (userDoc.exists()) {
+        setUserData(userDoc.data());
+      }
+    };
+    if (auth.currentUser) {
+      getUserData();
+    }
+  }, [auth.currentUser]);
 
   return (
     <Container>
