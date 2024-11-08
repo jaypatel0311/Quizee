@@ -9,6 +9,8 @@ import {
   Alert,
   Autocomplete,
 } from "@mui/material";
+import { auth } from "../../src/app/config/firebaseConfig";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = () => {
   const [result, setResult] = useState([]);
@@ -16,12 +18,20 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(false);
 
-  const handleSearch = (newValue) => {
-    // Handle search logic here
-  };
-
   const handleLogin = () => {
-    // Handle login logic here
+    console.log(email);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        router.push("/");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Error logging in:", errorCode, errorMessage);
+        setAlert(true);
+      });
   };
 
   return (
@@ -52,7 +62,7 @@ const LoginForm = () => {
             <Autocomplete
               freeSolo
               options={result}
-              onInputChange={(event, newValue) => handleSearch(newValue)}
+              onInputChange={(event, newValue) => setEmail(newValue)}
               renderInput={(params) => (
                 <TextField
                   {...params}
