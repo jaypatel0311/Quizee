@@ -13,11 +13,15 @@ function ResponsiveAppBar() {
     <Grid2 container spacing={2} padding={2}>
       <Grid2 size={{ xl: 10, lg: 10, md: 10, xs: 10 }}>
         <Typography
+          onClick={(e) => {
+            router.push("/");
+          }}
           variant="h6"
           noWrap
           component="a"
           sx={{
             mr: 2,
+            cursor: "pointer",
             display: { md: "flex" },
             fontFamily: "cursive",
             fontWeight: 700,
@@ -38,7 +42,7 @@ function ResponsiveAppBar() {
           <Tooltip title="Profile">
             <IconButton
               onClick={(e) => {
-                router.push("/signup");
+                router.push("/login");
               }}
               sx={{ p: 0 }}
             >
