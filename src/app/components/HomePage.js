@@ -45,74 +45,72 @@ const HomePage = ({ isauth }) => {
           <strong>{Utils.toTitleCase(auth?.currentUser?.displayName)}!</strong>{" "}
           Let's Play
         </Typography>
-        <Grid2 container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid2 size={6}>
-            <Paper elevation={1} sx={{ p: 8 }}>
+        <Grid2
+          container
+          rowSpacing={3}
+          columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3 }}
+        >
+          <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
+            <Paper elevation={1} sx={{ p: 1 }}>
               <Typography variant="h6">Casual Games Played</Typography>
               <Typography>
                 {userData ? userData.CasualGamesPlayed : 0}
               </Typography>
             </Paper>
           </Grid2>
-          <Box display="flex" justifyContent="center">
-            <Box display="flex" flexWrap="wrap">
-              <Grid2 container spacing={2}>
-                <Grid2 item>
-                  <CardForGameMode
-                    key="qa"
-                    imagePath="/images/casual.svg"
-                    name="Casual"
-                    RedirectPath={isauth ? "/casual" : "/signup"}
-                  />
-                </Grid2>
-                <Grid2 item>
-                  <CardForGameMode
-                    key="a"
-                    imagePath="/images/competitive.svg"
-                    name="Competitive"
-                    RedirectPath={isauth ? "/competitive" : "/signup"}
-                  />
-                </Grid2>
-                <Grid2 item>
-                  <CardForGameMode
-                    key="as"
-                    imagePath="/images/host.svg"
-                    name="Host Game"
-                    RedirectPath={isauth ? "/host" : "/signup"}
-                  />
-                </Grid2>
-                <Grid2 item>
-                  <CardForGameMode
-                    key="aa"
-                    imagePath="/images/join.svg"
-                    name="Join Game"
-                    RedirectPath={isauth ? "/join" : "/signup"}
-                  />
-                </Grid2>
-              </Grid2>
-            </Box>
-          </Box>
-          <Grid2 size={6}>
-            <Paper elevation={1} sx={{ p: 8 }}>
+          <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
+            <Paper elevation={1} sx={{ p: 1 }}>
               <Typography variant="h6">Casual Games Win</Typography>
               <Typography>{userData ? userData.CasualamesWin : 0}</Typography>
             </Paper>
           </Grid2>
-          <Grid2 size={6}>
-            <Paper elevation={1} sx={{ p: 8 }}>
+          <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
+            <Paper elevation={1} sx={{ p: 1 }}>
               <Typography variant="h6">Competitive Games Played</Typography>
               <Typography>
                 {userData ? userData.CompetitiveGamesPlayed : 0}
               </Typography>
             </Paper>
           </Grid2>
-          <Grid2 size={6}>
-            <Paper elevation={1} sx={{ p: 8 }}>
+          <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
+            <Paper elevation={1} sx={{ p: 1 }}>
               <Typography variant="h6">Competitive Games Win</Typography>
               <Typography>
                 {userData ? userData.CompetitiveGamesWin : 0}
               </Typography>
             </Paper>
+          </Grid2>
+          <Grid2 size={3}>
+            <CardForGameMode
+              key="qa"
+              imagePath="/images/casual.svg"
+              name="Casual"
+              RedirectPath={isauth ? "/casual" : "/signup"}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <CardForGameMode
+              key="a"
+              imagePath="/images/competitive.svg"
+              name="Competitive"
+              RedirectPath={isauth ? "/competitive" : "/signup"}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <CardForGameMode
+              key="as"
+              imagePath="/images/host.svg"
+              name="Host Game"
+              RedirectPath={isauth ? "/host" : "/signup"}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <CardForGameMode
+              key="aa"
+              imagePath="/images/join.svg"
+              name="Join Game"
+              RedirectPath={isauth ? "/join" : "/signup"}
+            />
           </Grid2>
         </Grid2>
       </main>

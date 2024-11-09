@@ -12,22 +12,16 @@ const CardForGameMode = ({ imagePath, RedirectPath, name }) => {
   const router = useRouter();
 
   return (
-    <Box
-      flex="50%"
-      maxWidth="50%"
-      padding="0 4px"
-      position="relative"
-      textAlign="center"
-    >
+    <Box padding="0 4px" position="relative" textAlign="center">
       <Card>
         <CardActionArea onClick={() => router.push(RedirectPath)}>
           <CardMedia
             component="img"
-            height="250"
+            height="200"
             image={imagePath}
             alt={name}
           />
-          <Typography variant="h6" component="p">
+          <Typography variant="h6" component="p" p={2}>
             {name}
           </Typography>
         </CardActionArea>
