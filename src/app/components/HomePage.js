@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { app } from "../config/firebaseConfig";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { Grid2, Paper, Typography } from "@mui/material";
+import { Box, Grid2, Paper, Typography } from "@mui/material";
 import Head from "next/head";
+import CardForGameMode from "./CardForGameMode";
 
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const HomePage = () => {
+const HomePage = ({ isauth }) => {
   const [userData, setUserData] = useState({
     CasualGamesPlayed: 0,
     CasualGamesWin: 0,
@@ -70,6 +71,44 @@ const HomePage = () => {
               </Paper>
             </Grid2>
           </Grid2>
+          <Box display="flex" justifyContent="center">
+            <Box display="flex" flexWrap="wrap">
+              <Grid2 container spacing={2}>
+                <Grid2 item>
+                  <CardForGameMode
+                    key="qa"
+                    imagePath="/images/casual.svg"
+                    name="Casual"
+                    RedirectPath={isauth ? "/casual" : "/signup"}
+                  />
+                </Grid2>
+                <Grid2 item>
+                  <CardForGameMode
+                    key="a"
+                    imagePath="/images/competitive.svg"
+                    name="Competitive"
+                    RedirectPath={isauth ? "/competitive" : "/signup"}
+                  />
+                </Grid2>
+                <Grid2 item>
+                  <CardForGameMode
+                    key="as"
+                    imagePath="/images/host.svg"
+                    name="Host Game"
+                    RedirectPath={isauth ? "/host" : "/signup"}
+                  />
+                </Grid2>
+                <Grid2 item>
+                  <CardForGameMode
+                    key="aa"
+                    imagePath="/images/join.svg"
+                    name="Join Game"
+                    RedirectPath={isauth ? "/join" : "/signup"}
+                  />
+                </Grid2>
+              </Grid2>
+            </Box>
+          </Box>
         </Paper>
       </main>
     </div>

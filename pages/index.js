@@ -18,5 +18,9 @@ export default function Home() {
     });
   }, [auth.onAuthStateChanged]);
 
-  return <Container>{isauth ? <HomePage /> : <LoginForm />}</Container>;
+  return (
+    <Container>
+      {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
+    </Container>
+  );
 }
