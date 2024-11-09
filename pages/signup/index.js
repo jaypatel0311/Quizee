@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import { db } from "../../src/app/config/firebaseConfig";
 import { useRouter } from "next/router";
 import {
@@ -9,14 +17,24 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const RegistrationForm = () => {
   const auth = getAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [bday, setBday] = useState("");
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -106,9 +124,22 @@ const RegistrationForm = () => {
           label="Password"
           variant="outlined"
           margin="normal"
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           fullWidth

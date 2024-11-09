@@ -4,7 +4,12 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { app } from "../config/firebaseConfig";
+import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
+import Utils from "../helpers/Utils";
+
+const auth = getAuth(app);
 
 function ResponsiveAppBar() {
   const router = useRouter();
@@ -39,14 +44,17 @@ function ResponsiveAppBar() {
         justifyContent={"flex-end"}
       >
         <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Profile">
+          <Tooltip title={Utils.toTitleCase(auth?.currentUser?.displayName)}>
             <IconButton
               onClick={(e) => {
                 router.push("/login");
               }}
               sx={{ p: 0 }}
             >
-              <Avatar alt="User" src="/static/images/avatar/2.jpg" />
+              <Avatar
+                alt={Utils.toTitleCase(auth?.currentUser?.displayName)}
+                src="/static/images/avatar/2.jpg"
+              />
             </IconButton>
           </Tooltip>
         </Box>
