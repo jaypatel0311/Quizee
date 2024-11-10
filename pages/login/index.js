@@ -13,14 +13,41 @@ import { auth } from "../../src/app/config/firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = () => {
+  const iState = {
+    email: "",
+    password: "",
+    errors: {},
+  };
+
+  const [state, setState] = useState(iState);
   const [result, setResult] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(false);
 
+  const onInputChange = (e) => {
+    setState({
+      ...state,
+      [e.target.id]: e.target.value,
+      errors: {
+        ...state.errors,
+        [e.target.id]: "",
+      },
+    });
+  };
+
   const handleLogin = () => {
-    console.log(email);
-    signInWithEmailAndPassword(auth, email, password)
+    const messages = {
+      "email.required": "Please enter Email.",
+      "email.email": "Please enter valid Email.",
+      "password.validatePassword":
+        "Please enter password between 6 to 50 characters containing atleast one small leter, one capital letter and one number or special character.",
+    };
+
+    let rules = {
+      email: "required|email",
+      password: "required|validatePassword",
+    };
+
+    signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
         router.push("/");
@@ -59,30 +86,30 @@ const LoginForm = () => {
             <Typography variant="h6" gutterBottom>
               Login
             </Typography>
-            <Autocomplete
-              freeSolo
-              options={result}
-              onInputChange={(event, newValue) => setEmail(newValue)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Email"
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              )}
+
+            <TextField
+              {...params}
+              id="email"
+              label="Email"
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              value={state.email}
+              onChange={onInputChange}
+              error={!!state.errors.email}
+              helperText={state.errors.email ? state.errors.email : ""}
             />
             <TextField
+              id="password"
               label="Password"
               type="password"
               variant="outlined"
               margin="normal"
               fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={state.password}
+              onChange={onInputChange}
+              error={!!state.errors.password}
+              helperText={state.errors.password ? state.errors.password : ""}
             />
             <Button
               fullWidth

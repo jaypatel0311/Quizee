@@ -18,15 +18,25 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { extend, validateAll } from "indicative/validator";
+import Utils from "@/app/helpers/Utils";
 
 const RegistrationForm = () => {
   const auth = getAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+
+  const iState = {
+    username: "",
+    email: "",
+    password: "",
+    errors: {},
+  };
+
+  const [state, setState] = useState(iState);
   const [bday, setBday] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  console.log("State:", state);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -34,6 +44,17 @@ const RegistrationForm = () => {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const onInputChange = (e) => {
+    setState({
+      ...state,
+      [e.target.id]: e.target.value,
+      errors: {
+        ...state.errors,
+        [e.target.id]: "",
+      },
+    });
   };
 
   useEffect(() => {
@@ -45,20 +66,41 @@ const RegistrationForm = () => {
     });
   }, []);
 
-  const handleSearch = (value) => {
-    let res = [];
+  // const handleSearch = (value) => {
+  //   let res = [];
 
-    if (!value || value.indexOf("@") >= 0) {
-      res = [];
-    } else {
-      res = ["gmail.com", "yahoo.com", "outlook.com"].map(
-        (domain) => `${value}@${domain}`
-      );
-    }
-  };
+  //   if (!value || value.indexOf("@") >= 0) {
+  //     res = [];
+  //   } else {
+  //     res = ["gmail.com", "yahoo.com", "outlook.com"].map(
+  //       (domain) => `${value}@${domain}`
+  //     );
+  //   }
+  // };
+
+  extend("validatePassword", {
+    validate() {
+      return Utils.isValidPassword(state.password);
+    },
+  });
 
   const createUser = async () => {
     //TODO: Add form validation
+
+    const messages = {
+      "username.required": "Please enter Name.",
+      "username.max": "Please enter name between 1 to 100 characters.",
+      "email.required": "Please enter Email.",
+      "email.email": "Please enter valid Email.",
+      "password.validatePassword":
+        "Please enter password between 6 to 50 characters containing atleast one small leter, one capital letter and one number or special character.",
+    };
+
+    let rules = {
+      username: "required|max:100",
+      email: "required|email",
+      password: "required|validatePassword",
+    };
 
     // try {
     //   const values = await form.validateFields();
@@ -66,8 +108,9 @@ const RegistrationForm = () => {
     // } catch {
     //   return;
     // }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async function (result) {
+    validateAll(state, rules, messages)
+      .then(async () => {
+        createUserWithEmailAndPassword(auth, state.email, state.password);
         try {
           await setDoc(doc(db, "users", result.user.uid), {
             birthdate: bday,
@@ -85,7 +128,16 @@ const RegistrationForm = () => {
         });
         router.push("/");
       })
-      .catch(function (error) {});
+      .catch((errors) => {
+        const formattedErrors = {};
+        errors.forEach(
+          (error) => (formattedErrors[error.field] = error.message)
+        );
+        setState({
+          ...state,
+          errors: formattedErrors,
+        });
+      });
   };
 
   return (
@@ -105,28 +157,37 @@ const RegistrationForm = () => {
         <TextField
           fullWidth
           label="Username"
+          id="username"
           variant="outlined"
           margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={state.username}
+          onChange={onInputChange}
+          error={!!state.errors.username}
+          helperText={state.errors.username ? state.errors.username : ""}
         />
         <TextField
           fullWidth
+          id="email"
           label="Email"
           variant="outlined"
           margin="normal"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={state.email}
+          onChange={onInputChange}
+          error={!!state.errors.email}
+          helperText={state.errors.email ? state.errors.email : ""}
         />
         <TextField
           fullWidth
+          id="password"
           label="Password"
           variant="outlined"
           margin="normal"
           type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={state.password}
+          onChange={onInputChange}
+          error={!!state.errors.password}
+          helperText={state.errors.password ? state.errors.password : ""}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -143,6 +204,7 @@ const RegistrationForm = () => {
         />
         <TextField
           fullWidth
+          id="bday"
           label="Birthday"
           variant="outlined"
           margin="normal"
