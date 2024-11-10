@@ -88,7 +88,6 @@ const LoginForm = () => {
             </Typography>
 
             <TextField
-              {...params}
               id="email"
               label="Email"
               variant="outlined"
