@@ -40,7 +40,7 @@ const HomePage = ({ isauth }) => {
       </Head>
 
       <main>
-        <Typography variant="h4" fontFamily="sans-serif" gutterBottom>
+        <Typography variant="h4" fontFamily="sans-serif" paddingY={3}>
           Good to See You,{" "}
           <strong>{Utils.toTitleCase(auth?.currentUser?.displayName)}!</strong>{" "}
           Let's Play
@@ -80,7 +80,7 @@ const HomePage = ({ isauth }) => {
               </Typography>
             </Paper>
           </Grid2>
-          <Grid2 size={3}>
+          <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="qa"
               imagePath="/images/casual.svg"
@@ -88,7 +88,7 @@ const HomePage = ({ isauth }) => {
               RedirectPath={isauth ? "/casual" : "/signup"}
             />
           </Grid2>
-          <Grid2 size={3}>
+          <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="a"
               imagePath="/images/competitive.svg"
@@ -96,7 +96,7 @@ const HomePage = ({ isauth }) => {
               RedirectPath={isauth ? "/competitive" : "/signup"}
             />
           </Grid2>
-          <Grid2 size={3}>
+          <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="as"
               imagePath="/images/host.svg"
@@ -104,7 +104,7 @@ const HomePage = ({ isauth }) => {
               RedirectPath={isauth ? "/host" : "/signup"}
             />
           </Grid2>
-          <Grid2 size={3}>
+          <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="aa"
               imagePath="/images/join.svg"
