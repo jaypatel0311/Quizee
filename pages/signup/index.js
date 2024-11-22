@@ -20,10 +20,14 @@ import { doc, setDoc } from "firebase/firestore";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { extend, validateAll } from "indicative/validator";
 import Utils from "@/app/helpers/Utils";
+import { useDispatch } from "react-redux";
+import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
 
 const RegistrationForm = () => {
   const auth = getAuth();
   const router = useRouter();
+  const dispatch = useDispatch();
+  console.log(auth, "auth");
 
   const iState = {
     username: "",
@@ -35,8 +39,6 @@ const RegistrationForm = () => {
   const [state, setState] = useState(iState);
   const [bday, setBday] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  console.log("State:", state);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -59,7 +61,6 @@ const RegistrationForm = () => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
       if (user) {
         router.push("/");
       }
@@ -85,8 +86,6 @@ const RegistrationForm = () => {
   });
 
   const createUser = async () => {
-    //TODO: Add form validation
-
     const messages = {
       "username.required": "Please enter Name.",
       "username.max": "Please enter name between 1 to 100 characters.",
@@ -108,8 +107,11 @@ const RegistrationForm = () => {
     // } catch {
     //   return;
     // }
+    //TODO: Check validateAll function
+
     validateAll(state, rules, messages)
       .then(async () => {
+        dispatch(setOverlayLoading(true));
         createUserWithEmailAndPassword(auth, state.email, state.password);
         try {
           await setDoc(doc(db, "users", result.user.uid), {
@@ -126,6 +128,7 @@ const RegistrationForm = () => {
         updateProfile(auth.currentUser, {
           displayName: username,
         });
+        dispatch(setIsOverlayLoading(false));
         router.push("/");
       })
       .catch((errors) => {

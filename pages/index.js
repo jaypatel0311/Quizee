@@ -4,6 +4,7 @@ import { Container } from "@mui/material";
 import { app } from "../src/app/config/firebaseConfig";
 import HomePage from "../src/app/components/HomePage";
 import LoginForm from "./login";
+import Progress from "@/app/helpers/Progress";
 
 const auth = getAuth(app);
 
@@ -20,6 +21,7 @@ export default function Home() {
 
   return (
     <Container>
+      <Progress.OverlayProgress />
       {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
     </Container>
   );

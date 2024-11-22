@@ -10,6 +10,16 @@ const Constants = {
   specialLetter: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
 
   friendlyErrorMessage: "Oops !!! Something Went Wrong !!!",
+  reducerActions: {
+    login: "LOGIN",
+    logout: "LOGOUT",
+    showToast: "SHOW_TOAST",
+    hideToast: "HIDE_TOAST",
+    setContext: "SET_CONTEXT",
+    setStore: "SET_STORE",
+    unauthorized: "UNAUTHORIZED",
+    setOverlayLoading: "SET_OVERLAY_LOADING",
+  },
 };
 
 export default Constants;

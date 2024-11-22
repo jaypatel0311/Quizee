@@ -11,6 +11,9 @@ import {
 } from "@mui/material";
 import { auth } from "../../src/app/config/firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
 
 const LoginForm = () => {
   const iState = {
@@ -22,6 +25,8 @@ const LoginForm = () => {
   const [state, setState] = useState(iState);
   const [result, setResult] = useState([]);
   const [alert, setAlert] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const onInputChange = (e) => {
     setState({
@@ -34,7 +39,10 @@ const LoginForm = () => {
     });
   };
 
+  console.log(state.errors, "state.errors");
+
   const handleLogin = () => {
+    dispatch(setOverlayLoading(true));
     const messages = {
       "email.required": "Please enter Email.",
       "email.email": "Please enter valid Email.",
@@ -50,6 +58,7 @@ const LoginForm = () => {
     signInWithEmailAndPassword(auth, state.email, state.password)
       .then((userCredential) => {
         // Signed in
+        dispatch(setOverlayLoading(false));
         router.push("/");
         // ...
       })
