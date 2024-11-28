@@ -1,3 +1,4 @@
+import { cond } from "lodash";
 import { auth, db } from "../config/firebaseConfig";
 import createRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
@@ -18,20 +19,20 @@ export default async function MatchQueue(
   const queuerRef = doc(db, "queue", type); // Access the specific document in the queue collection
   const dataSnapshot = await getDoc(queuerRef);
   const data = dataSnapshot.data();
-  console.log(data, "Casual");
 
   if (data?.rooms === undefined || data?.rooms?.length === 0) {
     // if room queue is empty
-    const roomData = await createRoom(type, queCounts * 5);
+    const roomRef = await createRoom(type, queCounts * 5);
+    const roomData = (await getDoc(roomRef)).data();
     await setDoc(queuerRef, {
-      rooms: [roomData],
+      rooms: [{ ...roomData, gameRoomId: roomRef.id }],
     });
-    return [roomData.chatRoomId, roomData.gameRoomId];
+    return [roomData.chatRoomId, roomRef.id];
   } else {
     // if some rooms are available
     const gameRoomId = data.rooms[0].gameRoomId;
-    console.log(data, "gameRoomId");
     // join room
+    console.log(data.rooms[0].gameRoomId);
     const chatRoomId = await JoinRoom(data.rooms[0].gameRoomId);
     const roomData = { gameRoomId, chatRoomId };
 

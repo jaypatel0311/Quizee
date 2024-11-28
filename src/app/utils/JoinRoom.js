@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../config/firebaseConfig";
 
-const JoinRoom = async (roomCode) => {
+export const JoinRoom = async (roomCode) => {
   let gameRoomDoc = doc(db, "gameRoom", roomCode);
   let gameRoomData = await getDoc(gameRoomDoc);
   await updateDoc(gameRoomDoc, {
@@ -21,5 +21,3 @@ const JoinRoom = async (roomCode) => {
 
   return gameRoomData.data().chatRoomId;
 };
-
-export default JoinRoom;

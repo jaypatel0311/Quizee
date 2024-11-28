@@ -3,6 +3,7 @@ import { auth, db } from "../config/firebaseConfig";
 import { GenrateQuestions } from "../utils/GenrateQuestions";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 export default function Quiz({
   gameRoomId,
   quizState = false,
@@ -26,15 +27,11 @@ export default function Quiz({
       return;
     }
 
-    const unsub = db
-      .collection("gameRoom")
-      .doc(gameRoomId)
-      .onSnapshot(async (e) => {
-        console.log(e.state);
-        if ((await e.data().state) === "Ended") {
-          setQuizOver(true);
-        }
-      });
+    const unsub = onSnapshot(doc(db, "gameRoom", gameRoomId), async (e) => {
+      if ((await e.data().state) === "Ended") {
+        setQuizOver(true);
+      }
+    });
     return () => {
       unsub();
     };
@@ -46,8 +43,8 @@ export default function Quiz({
       return;
     }
     const LoadQuestions = async () => {
-      let gameRoomData = await db.collection("gameRoom").doc(gameRoomId).get();
-      gameRoomData = await gameRoomData.data();
+      const gameRoomDoc = doc(db, "gameRoom", gameRoomId);
+      const gameRoomData = await (await getDoc(gameRoomDoc)).data();
       const GenratedQues = await GenrateQuestions(gameRoomData.queNums);
       setQuizData(GenratedQues);
     };
@@ -58,7 +55,6 @@ export default function Quiz({
     if (quizData) {
       console.warn(quizData);
       const currentData = quizData[currentQueNumber];
-      console.log(currentData.o);
       setCurrentOptions(currentData.o);
       setCurrentAnswer(currentData.a);
       setCurrentQue(currentData.q);
@@ -69,8 +65,8 @@ export default function Quiz({
   const NextQuestion = async (optionValue) => {
     if (optionValue === currentAnswer) {
       //Add +1 to score
-      let gameRoomData = await db.collection("gameRoom").doc(gameRoomId).get();
-      const playersData = await gameRoomData.data().playersData;
+      let gameRoomData = await getDoc(doc(db, "gameRoom", gameRoomId));
+      const playersData = gameRoomData.data().playersData;
       const newPlayersData = playersData.map((e) => {
         if (e.id === auth.currentUser.uid) {
           e.score += 1;
@@ -79,19 +75,16 @@ export default function Quiz({
         return e;
       });
 
-      await db.collection("gameRoom").doc(gameRoomId).update({
+      await updateDoc(doc(db, "gameRoom", gameRoomId), {
         playersData: newPlayersData,
       });
     }
 
-    console.log(currentQueNumber);
     //check if it's last number
     if (currentQueNumber === queMultiplier * 5 - 1) {
       setQuizOver(true);
       if (!hasTime) {
-        console.log(hasTime);
-
-        await db.collection("gameRoom").doc(gameRoomId).update({
+        await updateDoc(doc(db, "gameRoom", gameRoomId), {
           state: "Ended",
         });
       }
@@ -130,7 +123,6 @@ export default function Quiz({
               }}
             >
               <div
-                className={styles.quizOptionx}
                 style={{
                   padding: "20px",
 
@@ -149,7 +141,6 @@ export default function Quiz({
                 <span>{currentOptions[0]}</span>
               </div>
               <div
-                className={styles.quizOptionx}
                 style={{
                   padding: "20px",
 
@@ -169,7 +160,6 @@ export default function Quiz({
               </div>
 
               <div
-                className={styles.quizOptionx}
                 style={{
                   padding: "20px",
                   width: "100%",
@@ -187,7 +177,6 @@ export default function Quiz({
                 {currentOptions[2]}
               </div>
               <div
-                className={styles.quizOptionx}
                 style={{
                   padding: "20px",
 

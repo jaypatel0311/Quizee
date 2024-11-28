@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import ChatBox from "../../src/app/components/ChatBox";
 import MatchQueue from "../../src/app/utils/QueueMatch";
 import Quiz from "../../src/app/components/Quiz";
-import { db, auth } from "../../src/app/config/firebaseConfig";
+import { auth } from "../../src/app/config/firebaseConfig";
 import Leaderbord from "../../src/app/components/LeaderBord";
 import Timer from "../../src/app/components/Timer";
 import { useRouter } from "next/router";
-import { doc, onSnapshot, increment, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  onSnapshot,
+  increment,
+  updateDoc,
+  getFirestore,
+} from "firebase/firestore";
+
+const db = getFirestore();
 
 export default function Casual() {
   const [gameRoomId, setGameRoomId] = useState("");
@@ -36,7 +44,7 @@ export default function Casual() {
   }, []);
 
   useEffect(() => {
-    if (gameRoomId === "") return;
+    if (gameRoomId === "" || gameRoomId === undefined) return;
 
     const gameRoomRef = doc(db, "gameRoom", gameRoomId);
     const unsub = onSnapshot(gameRoomRef, (docSnapshot) => {
@@ -71,7 +79,6 @@ export default function Casual() {
   return (
     <div
       style={{
-        backgroundColor: "rgba(187,147,83,0.85)",
         width: "100%",
         height: "680px",
         overflowY: "hidden",
@@ -93,22 +100,26 @@ export default function Casual() {
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          <Leaderbord
-            gameRoomId={gameRoomId}
-            timeBased={hasTime}
-            key="a"
-            onWin={onWin}
-            onLoose={onLoose}
-          />
+          {gameRoomId ? (
+            <Leaderbord
+              gameRoomId={gameRoomId}
+              timeBased={hasTime}
+              key="a"
+              onWin={onWin}
+              onLoose={onLoose}
+            />
+          ) : null}
         </div>
         <div>
-          <Quiz
-            queMultiplier={questionMultiplier}
-            gameRoomId={gameRoomId}
-            quizState={quizState}
-            hasTime={hasTime}
-            key="10"
-          />
+          {gameRoomId ? (
+            <Quiz
+              queMultiplier={questionMultiplier}
+              gameRoomId={gameRoomId}
+              quizState={quizState}
+              hasTime={hasTime}
+              key="10"
+            />
+          ) : null}
         </div>
         <div>
           <ChatBox ChatRoomId={chatRoomId} key="1" />

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useTimer } from "use-timer";
-import { auth, db } from "../config/firebaseConfig";
+import { db } from "../config/firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
 
 export default function Timer({ overTime, quizState, gameRoomId }) {
   const { time, start } = useTimer({
@@ -8,7 +9,8 @@ export default function Timer({ overTime, quizState, gameRoomId }) {
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: async () => {
-      await db.collection("gameRoom").doc(gameRoomId).update({
+      const gameRoomRef = doc(db, "gameRoom", gameRoomId);
+      await updateDoc(gameRoomRef, {
         state: "Ended",
       });
     },
