@@ -58,25 +58,25 @@ export default function Host() {
   }
 
   return !roomCreated ? (
-    <Container>
-      <Grid2
-        container
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid2 item xs={12} sm={6} md={4}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      sx={{ backgroundColor: "#f5f5f5", minHeight: "82vh", padding: 3 }}
+    >
+      <Grid2 container>
+        <Grid2 item xs={12} sm={6} md={4} lg={4}>
           <Box
             component="form"
             sx={{
               bgcolor: "background.paper",
-              boxShadow: 1,
-              borderRadius: 1,
+              boxShadow: 2,
+              borderRadius: 2,
               p: 3,
             }}
           >
             <Typography variant="h4" align="center">
-              Host a Game
+              Host Game
             </Typography>
             <TextField
               label="Number of Questions"
@@ -105,76 +105,78 @@ export default function Host() {
           </Box>
         </Grid2>
       </Grid2>
-    </Container>
+    </Box>
   ) : (
-    <Grid2
-      container
-      spacing={3}
-      display="flex"
-      justifyContent="center"
-      alignItems="baseline"
-    >
-      <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-        <Card sx={{ display: "flex", justifyContent: "center" }}>
-          <CardContent>
-            {started ? (
-              <Timer
-                key="555"
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+      <Grid2
+        container
+        spacing={3}
+        display="flex"
+        justifyContent="center"
+        alignItems="baseline"
+      >
+        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
+              {started ? (
+                <Timer
+                  key="555"
+                  gameRoomId={roomId}
+                  quizState={started}
+                  overTime={time}
+                ></Timer>
+              ) : (
+                <></>
+              )}
+
+              <Box paddingX={1.5}>
+                <Box>
+                  <Typography>
+                    <strong>Room ID :</strong> {roomId}
+                  </Typography>
+                </Box>
+              </Box>
+              <Leaderbord
+                gameRoomId={roomId}
+                timeBased={true}
+                key="a"
+                onWin={() => {}}
+                onLoose={() => {}}
+              ></Leaderbord>
+            </CardContent>
+          </Card>
+        </Grid2>
+        <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
+              <Quiz
+                queMultiplier={NumQues / 5}
                 gameRoomId={roomId}
                 quizState={started}
-                overTime={time}
-              ></Timer>
-            ) : (
-              <></>
-            )}
-
-            <Box paddingX={1.5}>
+                hasTime={true}
+                key="10"
+              ></Quiz>
+              <Box display="flex" justifyContent="center" mt={2}>
+                <Button variant="contained" color="primary" onClick={StartQuiz}>
+                  Start Quiz
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid2>
+        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
               <Box>
                 <Typography>
-                  <strong>Room ID :</strong> {roomId}
+                  <strong>Chat Room ID :</strong> {chatRoomId}
                 </Typography>
               </Box>
-            </Box>
-            <Leaderbord
-              gameRoomId={roomId}
-              timeBased={true}
-              key="a"
-              onWin={() => {}}
-              onLoose={() => {}}
-            ></Leaderbord>
-          </CardContent>
-        </Card>
+              <ChatBox ChatRoomId={chatRoomId}></ChatBox>
+            </CardContent>
+          </Card>
+        </Grid2>
       </Grid2>
-      <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
-        <Card sx={{ display: "flex", justifyContent: "center" }}>
-          <CardContent>
-            <Quiz
-              queMultiplier={NumQues / 5}
-              gameRoomId={roomId}
-              quizState={started}
-              hasTime={true}
-              key="10"
-            ></Quiz>
-            <Box display="flex" justifyContent="center" mt={2}>
-              <Button variant="contained" color="primary" onClick={StartQuiz}>
-                Start Quiz
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
-      </Grid2>
-      <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-        <Card sx={{ display: "flex", justifyContent: "center" }}>
-          <CardContent>
-            <Box>
-              <Typography>
-                <strong>Chat Room ID :</strong> {chatRoomId}
-              </Typography>
-            </Box>
-            <ChatBox ChatRoomId={chatRoomId}></ChatBox>
-          </CardContent>
-        </Card>
-      </Grid2>
-    </Grid2>
+    </Box>
   );
 }

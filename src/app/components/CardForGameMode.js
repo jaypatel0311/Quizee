@@ -12,8 +12,8 @@ const CardForGameMode = ({ imagePath, RedirectPath, name }) => {
   const router = useRouter();
 
   return (
-    <Box padding="0 4px" position="relative" textAlign="center">
-      <Card>
+    <Box position="relative" textAlign="center">
+      <Card sx={{ borderRadius: 2, boxShadow: 2 }}>
         <CardActionArea onClick={() => router.push(RedirectPath)}>
           <CardMedia
             component="img"

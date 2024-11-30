@@ -51,7 +51,7 @@ const HomePage = ({ isauth }) => {
           columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3 }}
         >
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={1} sx={{ p: 1 }}>
+            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
               <Typography variant="h6">Casual Games Played</Typography>
               <Typography>
                 {userData ? userData.CasualGamesPlayed : 0}
@@ -59,13 +59,13 @@ const HomePage = ({ isauth }) => {
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={1} sx={{ p: 1 }}>
+            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
               <Typography variant="h6">Casual Games Won</Typography>
               <Typography>{userData ? userData.CasualamesWin : 0}</Typography>
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={1} sx={{ p: 1 }}>
+            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
               <Typography variant="h6">Competitive Games Played</Typography>
               <Typography>
                 {userData ? userData.CompetitiveGamesPlayed : 0}
@@ -73,7 +73,7 @@ const HomePage = ({ isauth }) => {
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={1} sx={{ p: 1 }}>
+            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
               <Typography variant="h6">Competitive Games Won</Typography>
               <Typography>
                 {userData ? userData.CompetitiveGamesWin : 0}
