@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../config/firebaseConfig";
 import { GenrateQuestions } from "../utils/GenrateQuestions";
 import { useRouter } from "next/router";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 export default function Quiz({
   gameRoomId,
@@ -100,7 +100,9 @@ export default function Quiz({
   return (
     <div>
       {!quizState ? (
-        <div>Waiting For OtherPlayers To Join</div>
+        <Box display="flex" justifyContent="center">
+          <Typography>Waiting for others to join—starting shortly.</Typography>
+        </Box>
       ) : !quizOver ? (
         <div>
           <div style={{ justifyContent: "center" }}>

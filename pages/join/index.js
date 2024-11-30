@@ -6,7 +6,7 @@ import Quiz from "../../src/app/components/Quiz";
 import Leaderbord from "../../src/app/components/LeaderBord";
 import Timer from "../../src/app/components/Timer";
 import { doc, onSnapshot } from "firebase/firestore";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField,Grid2 , Box} from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 
 export default function Join() {
@@ -48,19 +48,26 @@ export default function Join() {
 
   return (
     <div
-      style={{
-        backgroundColor: "rgba(187,147,83,25)",
-        width: "100%",
-        height: "680px",
-      }}
     >
       {!isConnected ? (
-        <div>
+         <Grid2 container display='flex' justifyContent="center">
+         <Grid2 item xs={12} sm={6} md={4}>  
+         <Box
+               sx={{
+                 bgcolor: "background.paper",
+                 boxShadow: 2,
+                 borderRadius: 1,
+                 p: 3,
+               }}
+             >
+              <Box>
           <TextField
             label="Room Code"
             value={roomCodeInput}
             onChange={(e) => setRoomCodeInput(e.target.value)}
           />
+          </Box>
+          <Box display={"flex"} justifyContent={"center"} mt={2}>
           <Button
             variant="contained"
             startIcon={<DownloadIcon />}
@@ -68,7 +75,10 @@ export default function Join() {
           >
             Join Room
           </Button>
-        </div>
+          </Box>
+          </Box>      
+        </Grid2>
+        </Grid2>
       ) : (
         <div>
           {gameStarted ? (

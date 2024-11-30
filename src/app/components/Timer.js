@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useTimer } from "use-timer";
 import { db } from "../config/firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { Box } from "@mui/material";
 
 export default function Timer({ overTime, quizState, gameRoomId }) {
   const { time, start } = useTimer({
@@ -22,6 +24,15 @@ export default function Timer({ overTime, quizState, gameRoomId }) {
     }
   }, [quizState]);
   return (
-    <div style={{ fontWeight: "bolder" }}>Time Remaining:{time} Seconds</div>
+    <Box display='flex' justifyContent='center' mb={3}>
+    <CountdownCircleTimer
+    isPlaying
+    duration={time}
+    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+    colorsTime={[7, 5, 2, 0]}
+  >
+    {({ remainingTime }) => remainingTime}
+  </CountdownCircleTimer>
+  </Box>
   );
 }

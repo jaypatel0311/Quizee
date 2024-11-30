@@ -32,7 +32,7 @@ const HomePage = ({ isauth }) => {
   }, [auth.currentUser]);
 
   return (
-    <div>
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
       <Head>
         <title>Quizee</title>
         <meta name="description" content="Quizee App" />
@@ -60,7 +60,7 @@ const HomePage = ({ isauth }) => {
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={1} sx={{ p: 1 }}>
-              <Typography variant="h6">Casual Games Win</Typography>
+              <Typography variant="h6">Casual Games Won</Typography>
               <Typography>{userData ? userData.CasualamesWin : 0}</Typography>
             </Paper>
           </Grid2>
@@ -74,7 +74,7 @@ const HomePage = ({ isauth }) => {
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={1} sx={{ p: 1 }}>
-              <Typography variant="h6">Competitive Games Win</Typography>
+              <Typography variant="h6">Competitive Games Won</Typography>
               <Typography>
                 {userData ? userData.CompetitiveGamesWin : 0}
               </Typography>
@@ -114,7 +114,7 @@ const HomePage = ({ isauth }) => {
           </Grid2>
         </Grid2>
       </main>
-    </div>
+    </Box>
   );
 };
 

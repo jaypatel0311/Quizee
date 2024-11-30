@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { app } from "../src/app/config/firebaseConfig";
 import HomePage from "../src/app/components/HomePage";
 import LoginForm from "./login";
@@ -19,8 +19,10 @@ export default function Home() {
   }, [auth.onAuthStateChanged]);
 
   return (
-    <Container>
-      {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
-    </Container>
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+      <Container>
+        {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
+      </Container>
+    </Box>
   );
 }
