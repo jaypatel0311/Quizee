@@ -32,7 +32,7 @@ const HomePage = ({ isauth }) => {
   }, [auth.currentUser]);
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+    <Box>
       <Head>
         <title>Quizee</title>
         <meta name="description" content="Quizee App" />

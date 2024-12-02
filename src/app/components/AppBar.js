@@ -8,11 +8,23 @@ import { app } from "../config/firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import Utils from "../helpers/Utils";
+import SimpleDialog from "../utils/DialogBox";
+import { useState } from "react";
 
 const auth = getAuth(app);
 
 function ResponsiveAppBar() {
   const router = useRouter();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
 
   return (
     <Grid2 container spacing={2} padding={2}>
@@ -45,12 +57,7 @@ function ResponsiveAppBar() {
       >
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title={Utils.toTitleCase(auth?.currentUser?.displayName)}>
-            <IconButton
-              onClick={(e) => {
-                router.push("/login");
-              }}
-              sx={{ p: 0 }}
-            >
+            <IconButton onClick={handleClickOpen} sx={{ p: 0 }}>
               <Avatar
                 alt={Utils.toTitleCase(auth?.currentUser?.displayName)}
                 src="/static/images/avatar/2.jpg"
@@ -58,6 +65,7 @@ function ResponsiveAppBar() {
             </IconButton>
           </Tooltip>
         </Box>
+        <SimpleDialog open={open} onClose={handleClose} />
       </Grid2>
     </Grid2>
 

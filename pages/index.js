@@ -5,6 +5,20 @@ import { app } from "../src/app/config/firebaseConfig";
 import HomePage from "../src/app/components/HomePage";
 import LoginForm from "./login";
 
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: 0,
+        },
+      },
+    },
+  },
+});
+
 const auth = getAuth(app);
 
 export default function Home() {
@@ -19,10 +33,10 @@ export default function Home() {
   }, [auth.onAuthStateChanged]);
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+    <ThemeProvider theme={theme}>
       <Container>
         {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
       </Container>
-    </Box>
+    </ThemeProvider>
   );
 }

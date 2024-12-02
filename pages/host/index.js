@@ -23,6 +23,8 @@ import {
   CardContent,
 } from "@mui/material";
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
 
 export default function Host() {
   const [roomId, setRoomId] = useState("");
@@ -31,11 +33,12 @@ export default function Host() {
   const [roomCreated, setRoomCreated] = useState(false);
   const [time, setTime] = useState(15);
   const [NumQues, setNumQues] = useState(10);
+  const dispatch = useDispatch();
   //TO Create Room
   const MakeRoom = async () => {
     const roomRef = await createRoom("Custom", NumQues);
     const roomData = (await getDoc(roomRef)).data();
-    console.log(roomData, "roomData");
+
     const gameRoomRef = doc(db, "gameRoom", roomRef.id);
     await updateDoc(gameRoomRef, {
       time,
@@ -46,11 +49,13 @@ export default function Host() {
   };
 
   const StartQuiz = async () => {
+    dispatch(setOverlayLoading(true));
     const gameRoomRef = doc(db, "gameRoom", roomId);
     await updateDoc(gameRoomRef, {
       state: "Running",
     });
     setStarted(true);
+    dispatch(setOverlayLoading(false));
   };
 
   function formatter(value) {

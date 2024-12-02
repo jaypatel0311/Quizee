@@ -40,11 +40,14 @@ export default function ChatBox({ ChatRoomId }) {
   };
 
   return (
-    <Grid2 container spacing={2}>
-      <Grid2 item xs={12}>
-        <Typography variant="h6">Chat Room</Typography>
-      </Grid2>
-      <Grid2 item xs={12}>
+    <Grid2
+      container
+      rowSpacing={1}
+      justifyContent="center"
+      alignItems="center"
+      mt={2}
+    >
+      <Grid2 size={12}>
         <TextField
           label="Message"
           value={message}
@@ -55,7 +58,7 @@ export default function ChatBox({ ChatRoomId }) {
           }}
         />
       </Grid2>
-      <Grid2 item xs={12}>
+      <Grid2 item xs={12} sm={12} md={12}>
         <Button variant="contained" color="primary" onClick={sendMessage}>
           Send
         </Button>

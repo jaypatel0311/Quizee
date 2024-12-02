@@ -87,8 +87,8 @@ const LoginForm = () => {
             component="form"
             sx={{
               bgcolor: "background.paper",
-              boxShadow: 1,
-              borderRadius: 1,
+              boxShadow: 2,
+              borderRadius: 2,
               p: 3,
             }}
           >
