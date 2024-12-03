@@ -12,7 +12,14 @@ import {
   updateDoc,
   getFirestore,
 } from "firebase/firestore";
-import { Box, Card, CardContent, Grid2 } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Grid2,
+  Typography,
+} from "@mui/material";
 
 const db = getFirestore();
 
@@ -80,20 +87,12 @@ export default function Casual() {
 
   return (
     <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
-      <div style={{ textAlign: "center" }}>
-        <h2 style={{ marginLeft: "15px" }}>
+      {/* <div style={{ textAlign: "center" }}>
+        <h2>
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
         </h2>
-        {hasTime && (
-          <Timer
-            key="555"
-            gameRoomId={gameRoomId}
-            quizState={quizState}
-            overTime={overTime}
-          />
-        )}
-      </div>
+      </div> */}
 
       <Grid2
         container
@@ -102,18 +101,17 @@ export default function Casual() {
         justifyContent="center"
         alignItems="baseline"
       >
-        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+        <Grid2 item size={{ xs: 3, sm: 3, md: 3 }}>
           <Card sx={{ display: "flex", justifyContent: "center" }}>
             <CardContent>
-              {gameRoomId ? (
-                <Leaderbord
+              {hasTime && (
+                <Timer
+                  key="555"
                   gameRoomId={gameRoomId}
-                  timeBased={hasTime}
-                  key="a"
-                  onWin={onWin}
-                  onLoose={onLoose}
+                  quizState={quizState}
+                  overTime={overTime}
                 />
-              ) : null}
+              )}
             </CardContent>
           </Card>
         </Grid2>
@@ -134,8 +132,20 @@ export default function Casual() {
           </Card>
         </Grid2>
         <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
+          <Card
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "#282c34",
+            }}
+          >
             <CardContent>
+              <Box>
+                <Typography color="white" fontWeight={600}>
+                  Welcome to Your Interactive Chat Room
+                </Typography>
+                <Divider variant="fullWidth" sx={{ color: "white" }} />
+              </Box>
               <ChatBox ChatRoomId={chatRoomId} key="1" />
             </CardContent>
           </Card>

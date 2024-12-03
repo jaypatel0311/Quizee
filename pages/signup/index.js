@@ -124,8 +124,8 @@ const RegistrationForm = () => {
         } catch (error) {
           console.log(error);
         }
-        sendEmailVerification(auth.currentUser);
-        updateProfile(auth.currentUser, {
+        sendEmailVerification(auth?.currentUser);
+        updateProfile(auth?.currentUser, {
           displayName: username,
         });
         dispatch(setIsOverlayLoading(false));

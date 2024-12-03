@@ -14,8 +14,8 @@ import {
   Typography,
   Card,
   CardContent,
+  Divider,
 } from "@mui/material";
-import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
 import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
 
@@ -117,6 +117,18 @@ export default function Host() {
         <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
           <Card sx={{ display: "flex", justifyContent: "center" }}>
             <CardContent>
+              <Box paddingX={1.5}>
+                <Typography>
+                  <strong>Room ID :</strong> {roomId}
+                </Typography>
+              </Box>
+              <Leaderbord
+                gameRoomId={roomId}
+                timeBased={true}
+                key="a"
+                onWin={() => {}}
+                onLoose={() => {}}
+              ></Leaderbord>
               {started ? (
                 <Timer
                   key="555"
@@ -127,21 +139,6 @@ export default function Host() {
               ) : (
                 <></>
               )}
-
-              <Box paddingX={1.5}>
-                <Box>
-                  <Typography>
-                    <strong>Room ID :</strong> {roomId}
-                  </Typography>
-                </Box>
-              </Box>
-              <Leaderbord
-                gameRoomId={roomId}
-                timeBased={true}
-                key="a"
-                onWin={() => {}}
-                onLoose={() => {}}
-              ></Leaderbord>
             </CardContent>
           </Card>
         </Grid2>
@@ -178,13 +175,15 @@ export default function Host() {
               display: "flex",
               justifyContent: "center",
               backgroundColor: "#282c34",
+              borderRadius: 2,
             }}
           >
             <CardContent>
               <Box>
-                <Typography color="white">
-                  <strong>Chat Room ID :</strong> {chatRoomId}
+                <Typography color="white" fontWeight={600}>
+                  Welcome to Your Interactive Chat Room
                 </Typography>
+                <Divider variant="fullWidth" sx={{ color: "white" }} />
               </Box>
               <ChatBox ChatRoomId={chatRoomId}></ChatBox>
             </CardContent>

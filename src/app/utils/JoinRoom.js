@@ -9,8 +9,11 @@ import {
 import { auth, db } from "../config/firebaseConfig";
 
 export default async function JoinRoom(roomCode) {
+  console.log("JoinRoom", roomCode);
+
   let gameRoomDoc = doc(db, "gameRoom", roomCode);
   let gameRoomData = await getDoc(gameRoomDoc);
+
   await updateDoc(gameRoomDoc, {
     playersData: arrayUnion({
       id: auth.currentUser.uid,

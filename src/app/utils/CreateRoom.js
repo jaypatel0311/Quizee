@@ -14,8 +14,8 @@ export default async function createRoom(type, numberQues = 10) {
     chatRoomId: chatroomRef.id,
     playersData: [
       {
-        name: auth.currentUser.displayName,
-        id: auth.currentUser.uid,
+        name: auth?.currentUser?.displayName,
+        id: auth?.currentUser?.uid,
         score: 0,
       },
     ],

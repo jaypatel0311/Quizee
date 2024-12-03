@@ -3,7 +3,7 @@ import { useTimer } from "use-timer";
 import { db } from "../config/firebaseConfig";
 import { doc, updateDoc } from "firebase/firestore";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function Timer({ overTime, quizState, gameRoomId }) {
   const { time, start } = useTimer({
@@ -24,15 +24,23 @@ export default function Timer({ overTime, quizState, gameRoomId }) {
     }
   }, [quizState]);
   return (
-    <Box display="flex" justifyContent="center" m={3}>
+    <Box m={3}>
       <CountdownCircleTimer
-        size={100}
+        isSmoothColorTransition={true}
+        size={120}
+        strokeWidth={8}
         isPlaying
         duration={time}
         colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-        colorsTime={[7, 5, 2, 0]}
+        colorsTime={[12, 9, 5, 0]}
       >
-        {({ remainingTime }) => remainingTime}
+        {({ remainingTime, elapsedTime, color }) => (
+          <Box sx={{ left: "22px" }}>
+            <Typography style={{ color }}>
+              {remainingTime} seconds remaining
+            </Typography>
+          </Box>
+        )}
       </CountdownCircleTimer>
     </Box>
   );

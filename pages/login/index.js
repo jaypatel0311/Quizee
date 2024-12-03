@@ -8,12 +8,15 @@ import {
   Grid2,
   Alert,
   Autocomplete,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { auth } from "../../src/app/config/firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginForm = () => {
   const iState = {
@@ -27,6 +30,15 @@ const LoginForm = () => {
   const [alert, setAlert] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onInputChange = (e) => {
     setState({
@@ -63,10 +75,12 @@ const LoginForm = () => {
         // ...
       })
       .catch((error) => {
+        console.log(error.message, "error");
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error("Error logging in:", errorCode, errorMessage);
         setAlert(true);
+        dispatch(setOverlayLoading(false));
       });
   };
 
@@ -79,10 +93,13 @@ const LoginForm = () => {
         alignItems: "center",
       }}
     >
-      {alert && <Alert severity="error">Error message</Alert>}
-
-      <Grid2 container justifyContent="center" alignItems="center">
-        <Grid2 item xs={12} sm={6} md={4}>
+      <Grid2 container justifyContent="center" alignItems="center" spacing={4}>
+        {alert && (
+          <Alert variant="filled" severity="error">
+            Username or Password is incorrect!!
+          </Alert>
+        )}
+        <Grid2 size={{ xs: 12, md: 10, lg: 10 }}>
           <Box
             component="form"
             sx={{
@@ -106,18 +123,37 @@ const LoginForm = () => {
               onChange={onInputChange}
               error={!!state.errors.email}
               helperText={state.errors.email ? state.errors.email : ""}
+              onKeyPress={(e) => {
+                if (e.code === "Enter") handleLogin();
+              }}
             />
             <TextField
+              fullWidth
               id="password"
               label="Password"
-              type="password"
               variant="outlined"
               margin="normal"
-              fullWidth
+              type={showPassword ? "text" : "password"}
               value={state.password}
               onChange={onInputChange}
               error={!!state.errors.password}
               helperText={state.errors.password ? state.errors.password : ""}
+              onKeyPress={(e) => {
+                if (e.code === "Enter") handleLogin();
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <Button
               fullWidth

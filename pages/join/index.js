@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ChatBox from "../../src/app/components/ChatBox";
 import { db } from "../../src/app/config/firebaseConfig";
-import { JoinRoom } from "../../src/app/utils/JoinRoom";
+import JoinRoom from "../../src/app/utils/JoinRoom";
 import Quiz from "../../src/app/components/Quiz";
 import Leaderbord from "../../src/app/components/LeaderBord";
 import Timer from "../../src/app/components/Timer";
@@ -10,7 +10,6 @@ import { Button, TextField, Grid2, Box, Typography } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 
 export default function Join() {
-  const [roomCode, setRoomCode] = useState("");
   const [isConnected, setIsConnected] = useState(false);
   const [roomCodeInput, setRoomCodeInput] = useState("");
   const [chatRoomCode, setChatRoomCode] = useState("");
@@ -19,20 +18,20 @@ export default function Join() {
   const [time, setTime] = useState(15);
   useEffect(() => {
     const connectRoom = async () => {
-      if (roomCode !== "") {
-        const chatId = await JoinRoom(roomCode);
+      if (roomCodeInput !== "") {
+        const chatId = await JoinRoom(roomCodeInput);
         setChatRoomCode(chatId);
         setIsConnected(true);
       }
     };
     connectRoom();
-  }, [roomCode]);
+  }, [roomCodeInput]);
 
   useEffect(() => {
-    if (roomCode === "") {
+    if (roomCodeInput === "") {
       return;
     }
-    const unsub = onSnapshot(doc(db, "gameRoom", roomCode), (s) => {
+    const unsub = onSnapshot(doc(db, "gameRoom", roomCodeInput), (s) => {
       const data = s.data();
       setTime(data.time);
       setQueNums(data.queNums.length / 5);
@@ -44,7 +43,7 @@ export default function Join() {
     return () => {
       unsub();
     };
-  }, [roomCode]);
+  }, [roomCodeInput]);
 
   return (
     <div>
@@ -84,7 +83,9 @@ export default function Join() {
                     fontWeight: "bold",
                     textTransform: "none",
                   }}
-                  onClick={() => JoinRoom(roomCodeInput)}
+                  onClick={() => {
+                    JoinRoom(roomCodeInput);
+                  }}
                 >
                   Join Room
                 </Button>
@@ -98,7 +99,7 @@ export default function Join() {
             <div>
               <Timer
                 key="555"
-                gameRoomId={roomCode}
+                gameRoomId={roomCodeInput}
                 quizState={gameStarted}
                 overTime={time}
               ></Timer>
@@ -111,7 +112,7 @@ export default function Join() {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
               <Leaderbord
-                gameRoomId={roomCode}
+                gameRoomId={roomCodeInput}
                 timeBased={true}
                 key="a"
                 onWin={() => {}}
@@ -121,7 +122,7 @@ export default function Join() {
             <div>
               <Quiz
                 queMultiplier={queNums}
-                gameRoomId={roomCode}
+                gameRoomId={roomCodeInput}
                 quizState={gameStarted}
                 hasTime={true}
                 key="10"

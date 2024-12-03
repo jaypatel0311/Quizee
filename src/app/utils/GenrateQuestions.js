@@ -1,13 +1,7 @@
 import { getFirestore, collection, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebaseConfig"; // Assuming db is already initialized in firebaseConfig
 
-export const questionTypes = [
-  "geo",
-  // "Culture",
-  // "Economy",
-  // "History",
-  // "Politics",
-];
+export const questionTypes = ["CSE"];
 
 export const GenrateQuestions = async (questionNums) => {
   console.log(questionNums, "questionNums");

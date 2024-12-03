@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Button, Typography, Divider, Grid2 } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Divider,
+  Grid2,
+  Box,
+  Card,
+  CardContent,
+} from "@mui/material";
 import ChatBox from "../../src/app/components/ChatBox";
 import MatchQueue from "../../src/app/utils/QueueMatch";
 import Quiz from "../../src/app/components/Quiz";
@@ -22,7 +30,7 @@ export default function Casual() {
   const [quizState, setQuizState] = useState(false);
   const hasTime = true;
   const overTime = 30;
-  const playerCount = 3;
+  const playerCount = 1;
   const questionMultiplier = 4;
 
   useEffect(() => {
@@ -70,13 +78,17 @@ export default function Casual() {
   };
 
   return (
-    <div>
-      <div style={{ textAlign: "center" }}>
-        <Typography variant="h6" style={{ marginLeft: "15px" }}>
+    <Grid2 container display="flex" justifyContent="center" alignItems="center">
+      <Grid2 size={{ xs: 12, md: 12, lg: 12 }} p={3}>
+        <Typography
+          display="flex"
+          justifyContent="center"
+          variant="h6"
+          style={{ marginLeft: "15px" }}
+        >
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
         </Typography>
-        <Divider />
         {hasTime && (
           <Timer
             key="555"
@@ -85,21 +97,34 @@ export default function Casual() {
             overTime={overTime}
           />
         )}
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
-          <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
-        </div>
-        <div>
-          <Quiz
-            queMultiplier={questionMultiplier}
-            gameRoomId={gameRoomId}
-            quizState={quizState}
-            hasTime={hasTime}
-            key="10"
-          ></Quiz>
-        </div>
-      </div>
-    </div>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 3 }} p={3}>
+        <Card>
+          <CardContent>
+            <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
+          </CardContent>
+        </Card>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 6 }} p={3}>
+        <Card>
+          <CardContent>
+            <Quiz
+              queMultiplier={questionMultiplier}
+              gameRoomId={gameRoomId}
+              quizState={quizState}
+              hasTime={hasTime}
+              key="10"
+            ></Quiz>
+          </CardContent>
+        </Card>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 3 }} p={3}>
+        <Card>
+          <CardContent>
+            <ChatBox ChatRoomId={chatRoomId} key="1"></ChatBox>
+          </CardContent>
+        </Card>
+      </Grid2>
+    </Grid2>
   );
 }

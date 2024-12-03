@@ -121,56 +121,61 @@ export default function Quiz({
         </Box>
       ) : !quizOver ? (
         <div>
-          {/* Question Header */}
-          <Typography variant="subtitle1" color="textSecondary">
-            Question {currentQueNumber} / {NumQues}
-          </Typography>
-          <Typography variant="h6" gutterBottom>
-            {currentQue}
-          </Typography>
-
-          {/* Options */}
-          <Grid2 container spacing={2}>
-            {currentOptions.map((option, index) => (
-              <Grid2 item size={12} key={index}>
-                <Card
-                  sx={{
-                    border: "1px solid #E0E0E0",
-                    borderRadius: "8px",
-                    width: "100%",
-                    "&:hover": {
-                      backgroundColor: "#F9F9F9",
-                      cursor: "pointer",
-                    },
-                  }}
-                  key={index}
-                  onClick={() => {
-                    NextQuestion(option);
-                  }}
-                >
-                  <CardContent
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "16px",
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
+          {quizData && quizData.length > 0 ? (
+            <Box>
+              <Typography variant="subtitle1" color="textSecondary">
+                Question {currentQueNumber} / {NumQues}
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                {currentQue}
+              </Typography>
+              <Grid2 container spacing={2}>
+                {currentOptions.map((option, index) => (
+                  <Grid2 item size={12} key={index}>
+                    <Card
                       sx={{
-                        fontWeight: "bold",
-                        color: "#6A1B9A",
-                        marginRight: "16px",
+                        border: "1px solid #E0E0E0",
+                        borderRadius: "8px",
+                        width: "100%",
+                        "&:hover": {
+                          backgroundColor: "#F9F9F9",
+                          cursor: "pointer",
+                        },
+                      }}
+                      key={index}
+                      onClick={() => {
+                        NextQuestion(option);
                       }}
                     >
-                      {option}
-                    </Typography>
-                    {/* <Typography variant="body1">{option.text}</Typography> */}
-                  </CardContent>
-                </Card>
+                      <CardContent
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          padding: "16px",
+                        }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            fontWeight: "bold",
+                            color: "#6A1B9A",
+                            marginRight: "16px",
+                          }}
+                        >
+                          {option}
+                        </Typography>
+                        {/* <Typography variant="body1">{option.text}</Typography> */}
+                      </CardContent>
+                    </Card>
+                  </Grid2>
+                ))}
               </Grid2>
-            ))}
-          </Grid2>
+            </Box>
+          ) : (
+            <Box display="flex" justifyContent="center">
+              <Typography>Loading Questions...</Typography>
+            </Box>
+          )}
         </div>
       ) : (
         <div>
