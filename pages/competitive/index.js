@@ -71,31 +71,6 @@ export default function Casual() {
 
   return (
     <div>
-      <Grid2 container spacing={2}>
-        <Grid2 item xs={12}>
-          <Typography variant="h4">Casual Game</Typography>
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Quiz gameRoomId={gameRoomId} />
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Leaderbord gameRoomId={gameRoomId} />
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Timer hasTime={hasTime} overTime={overTime} />
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Divider />
-        </Grid2>
-        <Grid2 item xs={12}>
-          <ChatBox chatRoomId={chatRoomId} />
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Button variant="contained" color="primary" onClick={updateScore}>
-            Update Score
-          </Button>
-        </Grid2>
-      </Grid2>
       <div style={{ textAlign: "center" }}>
         <Typography variant="h6" style={{ marginLeft: "15px" }}>
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
@@ -114,6 +89,15 @@ export default function Casual() {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
+        </div>
+        <div>
+          <Quiz
+            queMultiplier={questionMultiplier}
+            gameRoomId={gameRoomId}
+            quizState={quizState}
+            hasTime={hasTime}
+            key="10"
+          ></Quiz>
         </div>
       </div>
     </div>

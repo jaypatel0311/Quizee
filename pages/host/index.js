@@ -10,15 +10,8 @@ import {
   Box,
   Grid2,
   Button,
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
   TextField,
   Typography,
-  Stack,
-  Paper,
   Card,
   CardContent,
 } from "@mui/material";
@@ -34,6 +27,7 @@ export default function Host() {
   const [time, setTime] = useState(15);
   const [NumQues, setNumQues] = useState(10);
   const dispatch = useDispatch();
+
   //TO Create Room
   const MakeRoom = async () => {
     const roomRef = await createRoom("Custom", NumQues);
@@ -67,7 +61,7 @@ export default function Host() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      sx={{ backgroundColor: "#f5f5f5", minHeight: "82vh", padding: 3 }}
+      sx={{ backgroundColor: "#f5f5f5", minHeight: "90vh", padding: 3 }}
     >
       <Grid2 container>
         <Grid2 item xs={12} sm={6} md={4} lg={4}>
@@ -159,13 +153,22 @@ export default function Host() {
                 gameRoomId={roomId}
                 quizState={started}
                 hasTime={true}
+                NumQues={NumQues}
                 key="10"
               ></Quiz>
-              <Box display="flex" justifyContent="center" mt={2}>
-                <Button variant="contained" color="primary" onClick={StartQuiz}>
-                  Start Quiz
-                </Button>
-              </Box>
+              {started ? (
+                <></>
+              ) : (
+                <Box display="flex" justifyContent="center" mt={2}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={StartQuiz}
+                  >
+                    Start Quiz
+                  </Button>
+                </Box>
+              )}
             </CardContent>
           </Card>
         </Grid2>

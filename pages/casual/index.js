@@ -5,7 +5,6 @@ import Quiz from "../../src/app/components/Quiz";
 import { auth } from "../../src/app/config/firebaseConfig";
 import Leaderbord from "../../src/app/components/LeaderBord";
 import Timer from "../../src/app/components/Timer";
-import { useRouter } from "next/router";
 import {
   doc,
   onSnapshot,
@@ -13,6 +12,7 @@ import {
   updateDoc,
   getFirestore,
 } from "firebase/firestore";
+import { Box, Card, CardContent, Grid2 } from "@mui/material";
 
 const db = getFirestore();
 
@@ -26,7 +26,7 @@ export default function Casual() {
   // Time Limit
   const overTime = 40;
   // Automatically start when player count matched
-  const playerCount = 5;
+  const playerCount = 1;
   // Number Of Questions Asked in Round
   const questionMultiplier = 3;
 
@@ -59,6 +59,8 @@ export default function Casual() {
     };
   }, [gameRoomId]);
 
+  console.log("gameRoomId", gameRoomId);
+
   const onWin = async () => {
     // Update win stats in user document
     const userRef = doc(db, "users", auth.currentUser.uid);
@@ -77,13 +79,7 @@ export default function Casual() {
   };
 
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "680px",
-        overflowY: "hidden",
-      }}
-    >
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
       <div style={{ textAlign: "center" }}>
         <h2 style={{ marginLeft: "15px" }}>
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
@@ -98,33 +94,53 @@ export default function Casual() {
           />
         )}
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
-          {gameRoomId ? (
-            <Leaderbord
-              gameRoomId={gameRoomId}
-              timeBased={hasTime}
-              key="a"
-              onWin={onWin}
-              onLoose={onLoose}
-            />
-          ) : null}
-        </div>
-        <div>
-          {gameRoomId ? (
-            <Quiz
-              queMultiplier={questionMultiplier}
-              gameRoomId={gameRoomId}
-              quizState={quizState}
-              hasTime={hasTime}
-              key="10"
-            />
-          ) : null}
-        </div>
-        <div>
-          <ChatBox ChatRoomId={chatRoomId} key="1" />
-        </div>
-      </div>
-    </div>
+
+      <Grid2
+        container
+        spacing={3}
+        display="flex"
+        justifyContent="center"
+        alignItems="baseline"
+      >
+        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
+              {gameRoomId ? (
+                <Leaderbord
+                  gameRoomId={gameRoomId}
+                  timeBased={hasTime}
+                  key="a"
+                  onWin={onWin}
+                  onLoose={onLoose}
+                />
+              ) : null}
+            </CardContent>
+          </Card>
+        </Grid2>
+        <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
+              {gameRoomId ? (
+                <Quiz
+                  queMultiplier={questionMultiplier}
+                  gameRoomId={gameRoomId}
+                  quizState={quizState}
+                  hasTime={hasTime}
+                  key="10"
+                  NumQues={15}
+                />
+              ) : null}
+            </CardContent>
+          </Card>
+        </Grid2>
+        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+          <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <CardContent>
+              <ChatBox ChatRoomId={chatRoomId} key="1" />
+            </CardContent>
+          </Card>
+        </Grid2>
+      </Grid2>
+    </Box>
   );
 }

@@ -2,14 +2,26 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../config/firebaseConfig";
 import { GenrateQuestions } from "../utils/GenrateQuestions";
 import { useRouter } from "next/router";
-import { Box, Button, Typography } from "@mui/material";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Grid2,
+  Typography,
+} from "@mui/material";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { setOverlayLoading } from "../reducer/slices/storeDataSlice";
+
 export default function Quiz({
   gameRoomId,
   quizState = false,
   hasTime = false,
   queMultiplier = 3,
+  NumQues,
 }) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [quizData, setQuizData] = useState(false);
   const [currentQue, setCurrentQue] = useState();
@@ -53,12 +65,15 @@ export default function Quiz({
 
   useEffect(() => {
     if (quizData) {
+      dispatch(setOverlayLoading(true));
       console.warn(quizData);
       const currentData = quizData[currentQueNumber];
+
       setCurrentOptions(currentData.o);
       setCurrentAnswer(currentData.a);
       setCurrentQue(currentData.q);
       setCurrentQueNumber(currentQueNumber + 1);
+      dispatch(setOverlayLoading(false));
     }
   }, [quizData]);
 
@@ -92,11 +107,12 @@ export default function Quiz({
     }
     //change all values to next questions values
     const currentData = quizData[currentQueNumber];
-    setCurrentOptions(currentData.o);
-    setCurrentAnswer(currentData.a);
-    setCurrentQue(currentData.q);
+    setCurrentOptions(currentData?.o);
+    setCurrentAnswer(currentData?.a);
+    setCurrentQue(currentData?.q);
     setCurrentQueNumber(currentQueNumber + 1);
   };
+
   return (
     <div>
       {!quizState ? (
@@ -105,107 +121,70 @@ export default function Quiz({
         </Box>
       ) : !quizOver ? (
         <div>
-          <div style={{ justifyContent: "center" }}>
-            <div
-              style={{
-                fontWeight: "bolder",
-                textAlign: "center",
-                fontSize: "27px",
-              }}
-            >
-              {currentQue}
-            </div>
-            <div
-              style={{
-                justifyContent: "center",
-                display: "grid",
-                gridTemplateRows: "auto auto",
-                gridTemplateColumns: "28vw 28vw",
-                gap: "3px",
-              }}
-            >
-              <div
-                style={{
-                  padding: "20px",
+          {/* Question Header */}
+          <Typography variant="subtitle1" color="textSecondary">
+            Question {currentQueNumber} / {NumQues}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            {currentQue}
+          </Typography>
 
-                  width: "100%",
-                  display: "inline-grid",
-                  backgroundColor: "wheat",
-                  textOverflow: "ellipsis",
-                  border: "1px black",
-                  cursor: "pointer",
-                }}
-                key="1"
-                onClick={(e) => {
-                  NextQuestion(currentOptions[0]);
-                }}
-              >
-                <span>{currentOptions[0]}</span>
-              </div>
-              <div
-                style={{
-                  padding: "20px",
-
-                  width: "100%",
-                  display: "inline-grid",
-                  backgroundColor: "wheat",
-                  textOverflow: "ellipsis",
-                  border: "1px black",
-                  cursor: "pointer",
-                }}
-                key="2"
-                onClick={(e) => {
-                  NextQuestion(currentOptions[1]);
-                }}
-              >
-                {currentOptions[1]}
-              </div>
-
-              <div
-                style={{
-                  padding: "20px",
-                  width: "100%",
-                  display: "inline-grid",
-                  backgroundColor: "wheat",
-                  textOverflow: "ellipsis",
-                  border: "1px black",
-                  cursor: "pointer",
-                }}
-                key="3"
-                onClick={(e) => {
-                  NextQuestion(currentOptions[2]);
-                }}
-              >
-                {currentOptions[2]}
-              </div>
-              <div
-                style={{
-                  padding: "20px",
-
-                  width: "100%",
-                  display: "inline-grid",
-                  backgroundColor: "wheat",
-                  textOverflow: "ellipsis",
-                  border: "1px black",
-                  cursor: "pointer",
-                }}
-                key="4"
-                onClick={(e) => {
-                  NextQuestion(currentOptions[3]);
-                }}
-              >
-                {currentOptions[3]}
-              </div>
-            </div>
-          </div>
+          {/* Options */}
+          <Grid2 container spacing={2}>
+            {currentOptions.map((option, index) => (
+              <Grid2 item size={12} key={index}>
+                <Card
+                  sx={{
+                    border: "1px solid #E0E0E0",
+                    borderRadius: "8px",
+                    width: "100%",
+                    "&:hover": {
+                      backgroundColor: "#F9F9F9",
+                      cursor: "pointer",
+                    },
+                  }}
+                  key={index}
+                  onClick={() => {
+                    NextQuestion(option);
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "16px",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        color: "#6A1B9A",
+                        marginRight: "16px",
+                      }}
+                    >
+                      {option}
+                    </Typography>
+                    {/* <Typography variant="body1">{option.text}</Typography> */}
+                  </CardContent>
+                </Card>
+              </Grid2>
+            ))}
+          </Grid2>
         </div>
       ) : (
         <div>
           <Button
-            type="primary"
-            shape="round"
-            size="large"
-            style={{ position: "relative", top: "13vw" }}
+            variant="outlined"
+            sx={{
+              color: "#28a745",
+              borderColor: "#28a745",
+              "&:hover": { backgroundColor: "primary", borderColor: "primary" },
+              borderRadius: "24px",
+              padding: "8px 24px",
+              fontWeight: "bold",
+              textTransform: "none",
+            }}
             onClick={(e) => {
               router.push("/");
             }}

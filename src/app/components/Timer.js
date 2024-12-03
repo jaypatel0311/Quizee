@@ -24,7 +24,7 @@ export default function Timer({ overTime, quizState, gameRoomId }) {
     }
   }, [quizState]);
   return (
-    <Box display="flex" justifyContent="center" mb={3}>
+    <Box display="flex" justifyContent="center" m={3}>
       <CountdownCircleTimer
         size={100}
         isPlaying

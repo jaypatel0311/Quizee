@@ -1,7 +1,7 @@
 import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebaseConfig";
 
-export const createRoom = async (type, numberQues = 10) => {
+export default async function createRoom(type, numberQues = 10) {
   let chatroomRef = await addDoc(collection(db, "chatRooms"), {
     chats: [],
   });
@@ -20,9 +20,8 @@ export const createRoom = async (type, numberQues = 10) => {
       },
     ],
   });
-  console.log(gameRoomRef, "gameRoomRef");
   return gameRoomRef;
-};
+}
 
 function GenrateQuestions(numberQues) {
   const arr = [];
