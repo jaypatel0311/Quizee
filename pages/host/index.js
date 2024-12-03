@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ChatBox from "../../src/app/components/ChatBox";
 import Quiz from "../../src/app/components/Quiz";
-import { createRoom } from "../../src/app/utils/CreateRoom";
+import createRoom from "../../src/app/utils/CreateRoom";
 import Leaderbord from "../../src/app/components/LeaderBord";
 import Timer from "../../src/app/components/Timer";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
@@ -106,7 +106,7 @@ export default function Host() {
       </Grid2>
     </Box>
   ) : (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "80vh", padding: 3 }}>
       <Grid2
         container
         spacing={3}
@@ -173,10 +173,16 @@ export default function Host() {
           </Card>
         </Grid2>
         <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
+          <Card
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "#282c34",
+            }}
+          >
             <CardContent>
               <Box>
-                <Typography>
+                <Typography color="white">
                   <strong>Chat Room ID :</strong> {chatRoomId}
                 </Typography>
               </Box>
