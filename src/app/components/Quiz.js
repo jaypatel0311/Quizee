@@ -132,7 +132,7 @@ export default function Quiz({
           {quizData && quizData.length > 0 ? (
             <Box>
               <Typography variant="subtitle1" color="white">
-                Question {currentQueNumber} / {NumQues}
+                Question {currentQueNumber} / {quizData.length}
               </Typography>
               <Typography variant="h6" gutterBottom color="white">
                 {currentQue}

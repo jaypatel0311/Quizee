@@ -24,23 +24,12 @@ export default async function createRoom(type, numberQues = 10) {
 }
 
 function GenrateQuestions(numberQues) {
-  const arr = [];
-  for (let i = 0; i < numberQues; i++) {
-    let rand = Math.floor(Math.random() * 10) + 1;
-    if (arr.length === 0) {
-      arr.push(rand);
-      continue;
-    }
-    if (arr[i - 1] === rand) {
-      if (rand === 10) {
-        arr.push(9);
-      } else {
-        rand++;
-        arr.push(rand);
-      }
-    } else {
-      arr.push(rand);
-    }
+  const questionIds = Array.from({ length: 103 }, (_, i) => i + 2);
+
+  for (let i = questionIds.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questionIds[i], questionIds[j]] = [questionIds[j], questionIds[i]];
   }
-  return arr;
+
+  return questionIds.slice(0, numberQues);
 }

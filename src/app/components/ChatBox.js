@@ -50,7 +50,7 @@ export default function ChatBox({ ChatRoomId }) {
       alignItems="center"
       mt={2}
     >
-      <Grid2 size={12} minHeight={"60vh"}>
+      <Grid2 size={12} minHeight={"58vh"}>
         {chats.length > 0
           ? chats.map((c) => (
               <Message
