@@ -17,13 +17,11 @@ const CardForGameMode = ({ imagePath, RedirectPath, name }) => {
         <CardActionArea onClick={() => router.push(RedirectPath)}>
           <CardMedia
             component="img"
-            height="200"
+            height="250"
             image={imagePath}
             alt={name}
+            sx={{ objectFit: "inherit" }}
           />
-          <Typography variant="h6" component="p" p={2}>
-            {name}
-          </Typography>
         </CardActionArea>
       </Card>
     </Box>
