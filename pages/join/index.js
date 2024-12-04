@@ -135,23 +135,24 @@ export default function Join() {
           {gameStarted ? (
             <></>
           ) : (
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ padding: 2 }}
-            >
-              <Typography variant="h6" color="primary">
-                Waiting for Host To Start Game....
-              </Typography>
-            </Box>
+            <Grid2 container display="flex" justifyContent="center">
+              <Grid2
+                size={{ xs: 12, md: 12, lg: 12 }}
+                display="flex"
+                justifyContent="center"
+              >
+                <Typography py={2} variant="h6" color="primary">
+                  Waiting for Host To Start Game....
+                </Typography>
+              </Grid2>
+            </Grid2>
           )}
           <Grid2
             container
-            spacing={3}
+            spacing={2}
             display="flex"
             justifyContent="center"
-            sx={{ minHeight: "80vh", padding: 3 }}
+            sx={{ minHeight: "80vh" }}
           >
             <Grid2 size={{ xs: 12, md: 12, lg: 3 }}>
               <Card
