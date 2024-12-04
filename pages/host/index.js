@@ -16,17 +16,14 @@ import {
   CardContent,
   Divider,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
 
 export default function Host() {
   const [roomId, setRoomId] = useState("");
   const [chatRoomId, setChatRoomId] = useState("");
   const [started, setStarted] = useState(false);
   const [roomCreated, setRoomCreated] = useState(false);
-  const [time, setTime] = useState(15);
+  const [time, setTime] = useState(300);
   const [NumQues, setNumQues] = useState(10);
-  const dispatch = useDispatch();
 
   //TO Create Room
   const MakeRoom = async () => {
@@ -43,13 +40,11 @@ export default function Host() {
   };
 
   const StartQuiz = async () => {
-    dispatch(setOverlayLoading(true));
     const gameRoomRef = doc(db, "gameRoom", roomId);
     await updateDoc(gameRoomRef, {
       state: "Running",
     });
     setStarted(true);
-    dispatch(setOverlayLoading(false));
   };
 
   function formatter(value) {
@@ -126,7 +121,7 @@ export default function Host() {
                   },
                 },
               }}
-              label="Time per Question"
+              label="Time Limit (Seconds)"
               type="number"
               value={time}
               onChange={(e) => setTime(e.target.value)}
@@ -176,13 +171,16 @@ export default function Host() {
                 onWin={() => {}}
                 onLoose={() => {}}
               ></Leaderbord>
+
               {started ? (
-                <Timer
-                  key="555"
-                  gameRoomId={roomId}
-                  quizState={started}
-                  overTime={time}
-                ></Timer>
+                <Box display="flex" justifyContent="center">
+                  <Timer
+                    key="555"
+                    gameRoomId={roomId}
+                    quizState={started}
+                    overTime={time}
+                  ></Timer>
+                </Box>
               ) : (
                 <></>
               )}

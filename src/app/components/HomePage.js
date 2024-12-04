@@ -6,6 +6,8 @@ import { Box, Chip, Grid2, Paper, Typography } from "@mui/material";
 import Head from "next/head";
 import CardForGameMode from "./CardForGameMode";
 import Utils from "../helpers/Utils";
+import { useDispatch } from "react-redux";
+import { setIsOverlayLoading } from "../reducer/actions";
 
 const db = getFirestore(app);
 const auth = getAuth(app);
@@ -17,11 +19,11 @@ const HomePage = ({ isauth }) => {
     CompetitiveGamesPlayed: 0,
     CompetitiveGamesWin: 0,
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getUserData = async () => {
       const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
-      console.log("User:", auth.currentUser.displayName);
       if (userDoc.exists()) {
         setUserData(userDoc.data());
       }
@@ -29,6 +31,7 @@ const HomePage = ({ isauth }) => {
     if (auth.currentUser) {
       getUserData();
     }
+    dispatch(setIsOverlayLoading(false));
   }, [auth.currentUser]);
 
   return (

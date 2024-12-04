@@ -29,6 +29,7 @@ function ResponsiveAppBar() {
   const logout = () => {
     auth.signOut();
     router.push("/login");
+    setAnchorEl(null);
   };
 
   return (

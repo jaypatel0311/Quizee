@@ -12,8 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
-import { useDispatch } from "react-redux";
-import { setOverlayLoading } from "../reducer/slices/storeDataSlice";
 
 export default function Quiz({
   gameRoomId,
@@ -25,7 +23,6 @@ export default function Quiz({
     loadTimer;
   },
 }) {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [quizData, setQuizData] = useState(false);
   const [currentQue, setCurrentQue] = useState();
@@ -71,7 +68,6 @@ export default function Quiz({
 
   useEffect(() => {
     if (quizData) {
-      dispatch(setOverlayLoading(true));
       console.warn(quizData);
       const currentData = quizData[currentQueNumber];
 
@@ -79,7 +75,6 @@ export default function Quiz({
       setCurrentAnswer(currentData.a);
       setCurrentQue(currentData.q);
       setCurrentQueNumber(currentQueNumber + 1);
-      dispatch(setOverlayLoading(false));
     }
   }, [quizData]);
 

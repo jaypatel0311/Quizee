@@ -35,6 +35,7 @@ const LoginForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+  console.log(auth, "auth");
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -50,8 +51,6 @@ const LoginForm = () => {
       },
     });
   };
-
-  console.log(state.errors, "state.errors");
 
   const handleLogin = () => {
     dispatch(setOverlayLoading(true));
@@ -168,11 +167,11 @@ const LoginForm = () => {
               variant="body2"
               sx={{ mt: 2, display: "flex", justifyContent: "center" }}
             >
-              Don't have an account?{" "}
+              Don't have an account?{""}
               <Box
                 component="a"
                 href="/signup"
-                sx={{ color: "primary.main", cursor: "pointer" }}
+                sx={{ color: "secondary.main", cursor: "pointer" }}
               >
                 Sign up
               </Box>

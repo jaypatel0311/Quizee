@@ -22,12 +22,12 @@ import { extend, validateAll } from "indicative/validator";
 import Utils from "@/app/helpers/Utils";
 import { useDispatch } from "react-redux";
 import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
+import { setIsOverlayLoading } from "@/app/reducer/actions";
 
 const RegistrationForm = () => {
   const auth = getAuth();
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log(auth, "auth");
 
   const iState = {
     username: "",
@@ -101,18 +101,14 @@ const RegistrationForm = () => {
       password: "required|validatePassword",
     };
 
-    // try {
-    //   const values = await form.validateFields();
-    //   return true;
-    // } catch {
-    //   return;
-    // }
-    //TODO: Check validateAll function
-
     validateAll(state, rules, messages)
       .then(async () => {
         dispatch(setOverlayLoading(true));
-        createUserWithEmailAndPassword(auth, state.email, state.password);
+        const result = await createUserWithEmailAndPassword(
+          auth,
+          state.email,
+          state.password
+        );
         try {
           await setDoc(doc(db, "users", result.user.uid), {
             birthdate: bday,
@@ -121,13 +117,13 @@ const RegistrationForm = () => {
             CompetitiveGamesPlayed: 0,
             CompetitiveGamesWin: 0,
           });
+          updateProfile(result.user, {
+            displayName: state.username,
+          });
+          dispatch(setIsOverlayLoading(false));
         } catch (error) {
           console.log(error);
         }
-        sendEmailVerification(auth?.currentUser);
-        updateProfile(auth?.currentUser, {
-          displayName: username,
-        });
         dispatch(setIsOverlayLoading(false));
         router.push("/");
       })
