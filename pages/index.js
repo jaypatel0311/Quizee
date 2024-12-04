@@ -8,6 +8,20 @@ import LoginForm from "./login";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#66FCF1", // Set your custom primary color
+    },
+    secondary: {
+      main: "#1f2833", // Set your custom secondary color
+    },
+  },
+  typography: {
+    fontFamily: "Roboto, Arial, sans-serif",
+    button: {
+      textTransform: "none", // Prevent uppercase styling for buttons
+    },
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {

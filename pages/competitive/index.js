@@ -87,7 +87,6 @@ export default function Casual() {
       container
       display="flex"
       justifyContent="center"
-      alignItems="center"
     >
       <Grid2 size={{ xs: 12, md: 12, lg: 12 }} p={3}>
         <Typography
@@ -100,7 +99,12 @@ export default function Casual() {
           Win
         </Typography>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 12, lg: 3 }} p={3}>
+      <Grid2
+        display="flex"
+        justifyContent="center"
+        size={{ xs: 12, md: 12, lg: 3 }}
+        pr={3}
+      >
         <Card>
           <CardContent>
             <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
@@ -115,7 +119,7 @@ export default function Casual() {
           </CardContent>
         </Card>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 12, lg: 6 }} p={3}>
+      <Grid2 size={{ xs: 12, md: 12, lg: 6 }} pr={3}>
         <Card>
           <CardContent>
             <Quiz
