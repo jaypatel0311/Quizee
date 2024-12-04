@@ -48,48 +48,65 @@ export default function Join() {
   return (
     <div>
       {!isConnected ? (
-        <Grid2 container display="flex" justifyContent="center">
-          <Grid2 item xs={12} sm={6} md={4}>
+        <Grid2
+          container
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            height: "80vh",
+            backgroundColor: "#f5f5f5",
+            padding: 2,
+          }}
+        >
+          <Grid2 item xs={12} sm={8} md={4}>
             <Box
               sx={{
-                bgcolor: "background.paper",
-                boxShadow: 2,
+                bgcolor: "white",
+                boxShadow: 3,
                 borderRadius: 2,
-                p: 5,
+                p: 4,
+                textAlign: "center",
               }}
             >
-              <Box>
-                <Typography variant="h4" align="center" mb={2}>
-                  Join Game
-                </Typography>
-                <TextField
-                  label="Room Code"
-                  value={roomCodeInput}
-                  onChange={(e) => setRoomCodeInput(e.target.value)}
-                />
-              </Box>
-              <Box display={"flex"} justifyContent={"center"} mt={2}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    color: "#28a745",
-                    borderColor: "#28a745",
-                    "&:hover": {
-                      backgroundColor: "primary",
-                      borderColor: "primary",
-                    },
-                    borderRadius: "24px",
-                    padding: "8px 24px",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                  }}
-                  onClick={() => {
-                    JoinRoom(roomCodeInput);
-                  }}
-                >
-                  Join Room
-                </Button>
-              </Box>
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", color: "#343a40", marginBottom: 3 }}
+              >
+                Join Game
+              </Typography>
+              <TextField
+                fullWidth
+                label="Enter Room Code"
+                value={roomCodeInput}
+                onChange={(e) => setRoomCodeInput(e.target.value)}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                  },
+                  marginBottom: 3,
+                }}
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  bgcolor: "primary",
+                  color: "white",
+                  fontWeight: "bold",
+                  padding: "10px 16px",
+                  textTransform: "none",
+                  borderRadius: "8px",
+                  "&:hover": {
+                    bgcolor: "#218838",
+                  },
+                }}
+                onClick={() => {
+                  JoinRoom(roomCodeInput);
+                }}
+              >
+                Join Room
+              </Button>
             </Box>
           </Grid2>
         </Grid2>

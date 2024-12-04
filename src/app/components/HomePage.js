@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { app } from "../config/firebaseConfig";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { Box, Grid2, Paper, Typography } from "@mui/material";
+import { Box, Chip, Grid2, Paper, Typography } from "@mui/material";
 import Head from "next/head";
 import CardForGameMode from "./CardForGameMode";
 import Utils from "../helpers/Utils";
@@ -52,32 +52,64 @@ const HomePage = ({ isauth }) => {
         >
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
-              <Typography variant="h6">Casual Games Played</Typography>
-              <Typography>
-                {userData ? userData.CasualGamesPlayed : 0}
-              </Typography>
+              <Grid2 container>
+                <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
+                  <Typography variant="h6">Casual Games Played </Typography>
+                </Grid2>
+                <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
+                  <Chip
+                    color="primary"
+                    label={userData ? userData.CasualGamesPlayed : 0}
+                  />
+                </Grid2>
+              </Grid2>
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
-              <Typography variant="h6">Casual Games Won</Typography>
-              <Typography>{userData ? userData.CasualamesWin : 0}</Typography>
+              <Grid2 container>
+                <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
+                  <Typography variant="h6">Casual Games Won </Typography>
+                </Grid2>
+                <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
+                  <Chip
+                    color="primary"
+                    label={userData ? userData.CasualamesWin : 0}
+                  />
+                </Grid2>
+              </Grid2>
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
-              <Typography variant="h6">Competitive Games Played</Typography>
-              <Typography>
-                {userData ? userData.CompetitiveGamesPlayed : 0}
-              </Typography>
+              <Grid2 container>
+                <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
+                  <Typography variant="h6">
+                    Competitive Games Played{" "}
+                  </Typography>
+                </Grid2>
+                <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
+                  <Chip
+                    color="primary"
+                    label={userData ? userData.CompetitiveGamesPlayed : 0}
+                  />
+                </Grid2>
+              </Grid2>
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
             <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
-              <Typography variant="h6">Competitive Games Won</Typography>
-              <Typography>
-                {userData ? userData.CompetitiveGamesWin : 0}
-              </Typography>
+              <Grid2 container>
+                <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
+                  <Typography variant="h6">Competitive Games Won </Typography>
+                </Grid2>
+                <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
+                  <Chip
+                    color="primary"
+                    label={userData ? userData.CompetitiveGamesWin : 0}
+                  />
+                </Grid2>
+              </Grid2>
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>

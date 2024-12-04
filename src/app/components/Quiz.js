@@ -20,6 +20,9 @@ export default function Quiz({
   hasTime = false,
   queMultiplier = 3,
   NumQues,
+  loadTimer = () => {
+    loadTimer;
+  },
 }) {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -59,6 +62,8 @@ export default function Quiz({
       const gameRoomData = await (await getDoc(gameRoomDoc)).data();
       const GenratedQues = await GenrateQuestions(gameRoomData.queNums);
       setQuizData(GenratedQues);
+
+      loadTimer(GenratedQues.length && GenratedQues ? true : false);
     };
     LoadQuestions();
   }, [gameRoomId]);
