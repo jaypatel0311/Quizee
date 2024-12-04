@@ -151,7 +151,7 @@ export default function Join() {
                     gameRoomId={roomCodeInput}
                     timeBased={true}
                     key="a"
-                    onWin={(e) => {}}
+                    onWin={() => {}}
                     onLoose={() => {}}
                   ></Leaderbord>
                   {gameStarted ? (

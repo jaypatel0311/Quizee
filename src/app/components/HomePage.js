@@ -40,7 +40,12 @@ const HomePage = ({ isauth }) => {
       </Head>
 
       <main>
-        <Typography variant="h4" fontFamily="sans-serif" paddingY={3}>
+        <Typography
+          variant="h4"
+          fontFamily="sans-serif"
+          paddingY={3}
+          color="primary"
+        >
           Good to See You,{" "}
           <strong>{Utils.toTitleCase(auth?.currentUser?.displayName)}!</strong>{" "}
           Let's Play
@@ -51,10 +56,15 @@ const HomePage = ({ isauth }) => {
           columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3 }}
         >
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
+            <Paper
+              elevation={2}
+              sx={{ p: 1, borderRadius: 2, bgcolor: "#1f2833" }}
+            >
               <Grid2 container>
                 <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
-                  <Typography variant="h6">Casual Games Played </Typography>
+                  <Typography variant="h6" color="white" ml={1}>
+                    Casual Games Played{" "}
+                  </Typography>
                 </Grid2>
                 <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
                   <Chip
@@ -66,10 +76,15 @@ const HomePage = ({ isauth }) => {
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
+            <Paper
+              elevation={2}
+              sx={{ p: 1, borderRadius: 2, bgcolor: "#1f2833" }}
+            >
               <Grid2 container>
                 <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
-                  <Typography variant="h6">Casual Games Won </Typography>
+                  <Typography variant="h6" color="white" ml={1}>
+                    Casual Games Won{" "}
+                  </Typography>
                 </Grid2>
                 <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
                   <Chip
@@ -81,10 +96,13 @@ const HomePage = ({ isauth }) => {
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
+            <Paper
+              elevation={2}
+              sx={{ p: 1, borderRadius: 2, bgcolor: "#1f2833" }}
+            >
               <Grid2 container>
                 <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
-                  <Typography variant="h6">
+                  <Typography variant="h6" color="white" ml={1}>
                     Competitive Games Played{" "}
                   </Typography>
                 </Grid2>
@@ -98,10 +116,15 @@ const HomePage = ({ isauth }) => {
             </Paper>
           </Grid2>
           <Grid2 size={{ xs: 6, md: 6, lg: 6 }}>
-            <Paper elevation={2} sx={{ p: 1, borderRadius: 2 }}>
+            <Paper
+              elevation={2}
+              sx={{ p: 1, borderRadius: 2, bgcolor: "#1f2833" }}
+            >
               <Grid2 container>
                 <Grid2 size={{ xs: 11, md: 11, lg: 11 }}>
-                  <Typography variant="h6">Competitive Games Won </Typography>
+                  <Typography variant="h6" color="white" ml={1}>
+                    Competitive Games Won{" "}
+                  </Typography>
                 </Grid2>
                 <Grid2 size={{ xs: 1, md: 1, lg: 1 }}>
                   <Chip

@@ -20,6 +20,7 @@ import {
   Grid2,
   Typography,
 } from "@mui/material";
+import Leaderboard from "../../src/app/components/LeaderBord";
 
 const db = getFirestore();
 
@@ -98,6 +99,12 @@ export default function Casual() {
         <Grid2 item size={{ xs: 3, sm: 3, md: 3 }}>
           <Card sx={{ display: "flex", justifyContent: "center" }}>
             <CardContent>
+              <Leaderboard
+                gameRoomId={gameRoomId}
+                timeBased={hasTime}
+                onWin={onWin}
+                onLoose={onLoose}
+              />
               {hasTime && (
                 <Timer
                   key="555"

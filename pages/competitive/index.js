@@ -20,6 +20,7 @@ import {
   onSnapshot,
   updateDoc,
   getDoc,
+  increment,
 } from "firebase/firestore";
 
 const db = getFirestore();
@@ -61,19 +62,36 @@ export default function Casual() {
     return () => unsub();
   }, [gameRoomId]);
 
-  const updateScore = async () => {
-    let gameRoomData = await getDoc(doc(db, "gameRoom", gameRoomId));
-    const playersData = gameRoomData.data().playersData;
-    const newPlayersData = playersData.map((e) => {
-      if (e.id === auth.currentUser.uid) {
-        e.score += 1;
-        return e;
-      }
-      return e;
-    });
+  // const updateScore = async () => {
+  //   let gameRoomData = await getDoc(doc(db, "gameRoom", gameRoomId));
+  //   const playersData = gameRoomData.data().playersData;
+  //   const newPlayersData = playersData.map((e) => {
+  //     if (e.id === auth.currentUser.uid) {
+  //       e.score += 1;
+  //       return e;
+  //     }
+  //     return e;
+  //   });
 
-    await updateDoc(doc(db, "gameRoom", gameRoomId), {
-      playersData: newPlayersData,
+  //   await updateDoc(doc(db, "gameRoom", gameRoomId), {
+  //     playersData: newPlayersData,
+  //   });
+  // };
+
+  const onWin = async () => {
+    // Update win stats in user document
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    await updateDoc(userRef, {
+      CompetitiveGamesPlayed: increment(1),
+      CompetitiveGamesWin: increment(1),
+    });
+  };
+
+  const onLoose = async () => {
+    // Update game played stats in user document
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    await updateDoc(userRef, {
+      CompetitiveGamesPlayed: increment(1),
     });
   };
 
@@ -107,7 +125,12 @@ export default function Casual() {
       >
         <Card>
           <CardContent>
-            <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
+            <Leaderbord
+              gameRoomId={gameRoomId}
+              timeBased={hasTime}
+              onWin={onWin}
+              onLoose={onLoose}
+            />
             {hasTime && (
               <Timer
                 key="555"
