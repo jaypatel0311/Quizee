@@ -32,7 +32,7 @@ export default function Casual() {
   // For Future Use (without counter Games)
   const hasTime = true;
   // Time Limit
-  const overTime = 40;
+  const overTime = 130;
   // Automatically start when player count matched
   const playerCount = 1;
   // Number Of Questions Asked in Round
@@ -47,6 +47,7 @@ export default function Casual() {
       );
       setGameRoomId(gameRoomId);
       setChatRoomId(chatRoomId);
+      setQuizState(true);
     };
     Match();
   }, []);

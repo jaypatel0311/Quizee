@@ -62,22 +62,6 @@ export default function Casual() {
     return () => unsub();
   }, [gameRoomId]);
 
-  // const updateScore = async () => {
-  //   let gameRoomData = await getDoc(doc(db, "gameRoom", gameRoomId));
-  //   const playersData = gameRoomData.data().playersData;
-  //   const newPlayersData = playersData.map((e) => {
-  //     if (e.id === auth.currentUser.uid) {
-  //       e.score += 1;
-  //       return e;
-  //     }
-  //     return e;
-  //   });
-
-  //   await updateDoc(doc(db, "gameRoom", gameRoomId), {
-  //     playersData: newPlayersData,
-  //   });
-  // };
-
   const onWin = async () => {
     // Update win stats in user document
     const userRef = doc(db, "users", auth.currentUser.uid);
