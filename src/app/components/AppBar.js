@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Utils from "../helpers/Utils";
 import { useState } from "react";
 import { Logout } from "@mui/icons-material";
+import * as _ from "lodash";
 
 const auth = getAuth(app);
 
@@ -23,12 +24,21 @@ function ResponsiveAppBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
     auth.signOut();
     router.push("/login");
   };
 
   return (
-    <Grid2 container spacing={2} padding={2}>
+    <Grid2
+      container
+      spacing={2}
+      padding={2}
+      position="static"
+      sx={{ backgroundColor: "#1f2833" }}
+    >
       <Grid2 size={{ xl: 10, lg: 10, md: 10, xs: 10 }}>
         <Typography
           onClick={(e) => {
@@ -46,6 +56,7 @@ function ResponsiveAppBar() {
             letterSpacing: ".3rem",
             color: "inherit",
             textDecoration: "none",
+            color: "#66FCF1",
           }}
         >
           Quizee
@@ -66,7 +77,16 @@ function ResponsiveAppBar() {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>J</Avatar>
+              <Avatar
+                sx={{
+                  width: 32,
+                  height: 32,
+                  bgcolor: "#66FCF1",
+                  color: "#1f2833",
+                }}
+                alt={_.first(Utils.toTitleCase(auth?.currentUser?.displayName))}
+                src="/static/images/avatar/2.jpg"
+              ></Avatar>
             </IconButton>
           </Tooltip>
         </Box>
@@ -106,7 +126,7 @@ function ResponsiveAppBar() {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={logout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
@@ -115,26 +135,6 @@ function ResponsiveAppBar() {
         </Menu>
       </Grid2>
     </Grid2>
-
-    // {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-
-    // {/* <Typography
-    //   variant="h5"
-    //   noWrap
-    //   component="a"
-    //   sx={{
-    //     mr: 2,
-    //     display: { xs: "flex", md: "none" },
-    //     flexGrow: 1,
-    //     fontFamily: "monospace",
-    //     fontWeight: 700,
-    //     letterSpacing: ".3rem",
-    //     color: "inherit",
-    //     textDecoration: "none",
-    //   }}
-    // >
-    //   Quizee
-    // </Typography> */}
   );
 }
 export default ResponsiveAppBar;

@@ -208,7 +208,6 @@ export default function Host() {
                 <Typography color="white" fontWeight={600}>
                   Welcome to Your Interactive Chat Room
                 </Typography>
-                <Divider variant="fullWidth" sx={{ color: "white" }} />
               </Box>
               <ChatBox ChatRoomId={chatRoomId}></ChatBox>
             </CardContent>

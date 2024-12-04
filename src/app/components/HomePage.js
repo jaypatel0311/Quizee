@@ -115,7 +115,7 @@ const HomePage = ({ isauth }) => {
           <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="qa"
-              imagePath="/images/casual.svg"
+              imagePath="/images/casual.png"
               name="Casual"
               RedirectPath={isauth ? "/casual" : "/signup"}
             />
@@ -123,7 +123,7 @@ const HomePage = ({ isauth }) => {
           <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="a"
-              imagePath="/images/competitive.svg"
+              imagePath="/images/competitive.png"
               name="Competitive"
               RedirectPath={isauth ? "/competitive" : "/signup"}
             />
@@ -131,7 +131,7 @@ const HomePage = ({ isauth }) => {
           <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="as"
-              imagePath="/images/host.svg"
+              imagePath="/images/host.png"
               name="Host Game"
               RedirectPath={isauth ? "/host" : "/signup"}
             />
@@ -139,7 +139,7 @@ const HomePage = ({ isauth }) => {
           <Grid2 size={{ xs: 12, md: 6, lg: 3 }}>
             <CardForGameMode
               key="aa"
-              imagePath="/images/join.svg"
+              imagePath="/images/join.png"
               name="Join Game"
               RedirectPath={isauth ? "/join" : "/signup"}
             />
