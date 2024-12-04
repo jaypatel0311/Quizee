@@ -32,7 +32,7 @@ export default function Casual() {
   // For Future Use (without counter Games)
   const hasTime = true;
   // Time Limit
-  const overTime = 130;
+  const overTime = 60;
   // Automatically start when player count matched
   const playerCount = 1;
   // Number Of Questions Asked in Round
