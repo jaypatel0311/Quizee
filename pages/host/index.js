@@ -61,23 +61,43 @@ export default function Host() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      sx={{ backgroundColor: "#f5f5f5", minHeight: "90vh", padding: 3 }}
+      sx={{ minHeight: "90vh", padding: 3 }}
     >
       <Grid2 container>
         <Grid2 item xs={12} sm={6} md={4} lg={4}>
           <Box
             component="form"
             sx={{
-              bgcolor: "background.paper",
+              bgcolor: "secondary.main",
               boxShadow: 2,
               borderRadius: 2,
               p: 3,
             }}
           >
-            <Typography variant="h4" align="center">
+            <Typography variant="h4" align="center" color="white">
               Host Game
             </Typography>
             <TextField
+              sx={{
+                "& .MuiInputBase-root": {
+                  color: "white", // Text color
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white", // Border color
+                    borderRadius: "12px",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white", // Border color on hover
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white", // Border color when focused
+                  },
+                },
+              }}
               label="Number of Questions"
               type="number"
               value={NumQues}
@@ -86,6 +106,26 @@ export default function Host() {
               margin="normal"
             />
             <TextField
+              sx={{
+                "& .MuiInputBase-root": {
+                  color: "white", // Text color
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white", // Border color
+                    borderRadius: "12px",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white", // Border color on hover
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white", // Border color when focused
+                  },
+                },
+              }}
               label="Time per Question"
               type="number"
               value={time}
@@ -98,6 +138,7 @@ export default function Host() {
               color="primary"
               onClick={MakeRoom}
               fullWidth
+              sx={{ mt: 2 }}
             >
               Create Room
             </Button>
@@ -106,7 +147,7 @@ export default function Host() {
       </Grid2>
     </Box>
   ) : (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "80vh", padding: 3 }}>
+    <Box sx={{ minHeight: "80vh", padding: 3 }}>
       <Grid2
         container
         spacing={3}
@@ -115,10 +156,16 @@ export default function Host() {
         alignItems="baseline"
       >
         <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
+          <Card
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "secondary.main",
+            }}
+          >
             <CardContent>
               <Box paddingX={1.5}>
-                <Typography>
+                <Typography color="white">
                   <strong>Room ID :</strong> {roomId}
                 </Typography>
               </Box>
@@ -143,7 +190,13 @@ export default function Host() {
           </Card>
         </Grid2>
         <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
+          <Card
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              backgroundColor: "secondary.main",
+            }}
+          >
             <CardContent>
               <Quiz
                 queMultiplier={NumQues / 5}
@@ -174,7 +227,7 @@ export default function Host() {
             sx={{
               display: "flex",
               justifyContent: "center",
-              backgroundColor: "#282c34",
+              backgroundColor: "secondary.main",
               borderRadius: 2,
             }}
           >

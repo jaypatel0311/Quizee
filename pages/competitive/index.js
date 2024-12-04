@@ -31,7 +31,7 @@ export default function Casual() {
   const [quizState, setQuizState] = useState(false);
   const hasTime = true;
   const overTime = 30;
-  const playerCount = 1;
+  const playerCount = 2;
   const questionMultiplier = 4;
 
   useEffect(() => {
@@ -96,34 +96,24 @@ export default function Casual() {
   };
 
   return (
-    <Grid2
-      sx={{
-        height: "80vh",
-        padding: 2,
-      }}
-      container
-      display="flex"
-      justifyContent="center"
-    >
-      <Grid2 size={{ xs: 12, md: 12, lg: 12 }} p={3}>
-        <Typography
-          display="flex"
-          justifyContent="center"
-          variant="h6"
-          style={{ marginLeft: "15px" }}
-          color="primary"
-        >
+    <Grid2 spacing={2} mx={2} container display="flex" justifyContent="center">
+      <Grid2
+        size={{ xs: 12, md: 12, lg: 12 }}
+        pt={2}
+        display="flex"
+        justifyContent="center"
+      >
+        <Typography variant="h6" color="primary">
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
         </Typography>
       </Grid2>
-      <Grid2
-        display="flex"
-        justifyContent="center"
-        size={{ xs: 12, md: 12, lg: 3 }}
-        pr={3}
-      >
-        <Card>
+      <Grid2 size={{ xs: 12, md: 12, lg: 3 }}>
+        <Card
+          display="flex"
+          justifyContent="center"
+          sx={{ backgroundColor: "secondary.main" }}
+        >
           <CardContent>
             <Leaderbord
               gameRoomId={gameRoomId}
@@ -132,18 +122,20 @@ export default function Casual() {
               onLoose={onLoose}
             />
             {hasTime && (
-              <Timer
-                key="555"
-                gameRoomId={gameRoomId}
-                quizState={quizState}
-                overTime={overTime}
-              />
+              <Box display="flex" justifyContent="center">
+                <Timer
+                  key="555"
+                  gameRoomId={gameRoomId}
+                  quizState={quizState}
+                  overTime={overTime}
+                />
+              </Box>
             )}
           </CardContent>
         </Card>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 12, lg: 6 }} pr={3}>
-        <Card>
+      <Grid2 size={{ xs: 12, md: 12, lg: 6 }}>
+        <Card sx={{ backgroundColor: "secondary.main" }}>
           <CardContent>
             <Quiz
               queMultiplier={questionMultiplier}
@@ -160,7 +152,7 @@ export default function Casual() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "#282c34",
+            backgroundColor: "secondary.main",
             borderRadius: 2,
           }}
         >

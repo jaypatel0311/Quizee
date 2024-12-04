@@ -123,16 +123,18 @@ export default function Quiz({
     <div>
       {!quizState ? (
         <Box display="flex" justifyContent="center">
-          <Typography>Waiting for others to join—starting shortly.</Typography>
+          <Typography color="white">
+            Waiting for others to join—starting shortly.
+          </Typography>
         </Box>
       ) : !quizOver ? (
         <div>
           {quizData && quizData.length > 0 ? (
             <Box>
-              <Typography variant="subtitle1" color="textSecondary">
+              <Typography variant="subtitle1" color="white">
                 Question {currentQueNumber} / {NumQues}
               </Typography>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom color="white">
                 {currentQue}
               </Typography>
               <Grid2 container spacing={2}>
@@ -164,7 +166,7 @@ export default function Quiz({
                           variant="h6"
                           sx={{
                             fontWeight: "bold",
-                            color: "#6A1B9A",
+                            color: "seecondary.main",
                             marginRight: "16px",
                           }}
                         >
@@ -179,7 +181,7 @@ export default function Quiz({
             </Box>
           ) : (
             <Box display="flex" justifyContent="center">
-              <Typography>Loading Questions...</Typography>
+              <Typography color="white">Loading Questions...</Typography>
             </Box>
           )}
         </div>
@@ -188,8 +190,8 @@ export default function Quiz({
           <Button
             variant="outlined"
             sx={{
-              color: "#28a745",
-              borderColor: "#28a745",
+              color: "primary.main",
+              borderColor: "primary.main",
               "&:hover": {
                 backgroundColor: "primary",
                 borderColor: "primary",
