@@ -142,7 +142,7 @@ export default function Join() {
               alignItems="center"
               sx={{ padding: 2 }}
             >
-              <Typography variant="h3">
+              <Typography variant="h6" color="primary">
                 Waiting for Host To Start Game....
               </Typography>
             </Box>
@@ -152,11 +152,14 @@ export default function Join() {
             spacing={3}
             display="flex"
             justifyContent="center"
-            alignItems="baseline"
             sx={{ minHeight: "80vh", padding: 3 }}
           >
-            <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-              <Card sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid2 size={{ xs: 12, md: 12, lg: 3 }}>
+              <Card
+                display="flex"
+                justifyContent="center"
+                sx={{ backgroundColor: "secondary.main" }}
+              >
                 <CardContent>
                   <Leaderbord
                     gameRoomId={roomCodeInput}
@@ -164,24 +167,28 @@ export default function Join() {
                     key="a"
                     onWin={() => {}}
                     onLoose={() => {}}
-                  ></Leaderbord>
-                  {gameStarted ? (
-                    <div>
+                  />
+                  {gameStarted && (
+                    <Box display="flex" justifyContent="center">
                       <Timer
                         key="555"
                         gameRoomId={roomCodeInput}
                         quizState={gameStarted}
                         overTime={time}
-                      ></Timer>
-                    </div>
-                  ) : (
-                    <></>
+                      />
+                    </Box>
                   )}
                 </CardContent>
               </Card>
             </Grid2>
             <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
-              <Card sx={{ display: "flex", justifyContent: "center" }}>
+              <Card
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  backgroundColor: "secondary.main",
+                }}
+              >
                 <CardContent>
                   <Quiz
                     queMultiplier={queNums}
