@@ -36,10 +36,8 @@ export default function Timer({ overTime, quizState, gameRoomId }) {
         colorsTime={[12, 9, 5, 0]}
       >
         {({ remainingTime, elapsedTime, color }) => (
-          <Box sx={{ left: "22px" }}>
-            <Typography style={{ color }}>
-              {remainingTime} seconds remaining
-            </Typography>
+          <Box>
+            <Typography style={{ color }}>{remainingTime} s</Typography>
           </Box>
         )}
       </CountdownCircleTimer>

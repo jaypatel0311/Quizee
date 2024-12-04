@@ -86,7 +86,7 @@ export default function Casual() {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: 3 }}>
+    <Box sx={{ minHeight: "100vh", padding: 3 }}>
       {/* <div style={{ textAlign: "center" }}>
         <h2>
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
@@ -94,13 +94,7 @@ export default function Casual() {
         </h2>
       </div> */}
 
-      <Grid2
-        container
-        spacing={3}
-        display="flex"
-        justifyContent="center"
-        alignItems="baseline"
-      >
+      <Grid2 container spacing={3} display="flex" justifyContent="center">
         <Grid2 item size={{ xs: 3, sm: 3, md: 3 }}>
           <Card sx={{ display: "flex", justifyContent: "center" }}>
             <CardContent>
