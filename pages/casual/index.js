@@ -87,71 +87,86 @@ export default function Casual() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", padding: 3 }}>
-      {/* <div style={{ textAlign: "center" }}>
-        <h2>
+    <Grid2 container spacing={2} mx={2} display="flex" justifyContent="center">
+      <Grid2
+        item
+        size={{ xs: 12, sm: 12, md: 12 }}
+        display="flex"
+        justifyContent="center"
+        pt={2}
+      >
+        <Typography variant="h6" color="primary">
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
-        </h2>
-      </div> */}
-
-      <Grid2 container spacing={3} display="flex" justifyContent="center">
-        <Grid2 item size={{ xs: 3, sm: 3, md: 3 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
-            <CardContent>
-              <Leaderboard
-                gameRoomId={gameRoomId}
-                timeBased={hasTime}
-                onWin={onWin}
-                onLoose={onLoose}
-              />
-              {hasTime && (
+        </Typography>
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 12, lg: 3 }}>
+        <Card
+          display="flex"
+          justifyContent="center"
+          sx={{ backgroundColor: "secondary.main" }}
+        >
+          <CardContent>
+            <Leaderbord
+              gameRoomId={gameRoomId}
+              timeBased={hasTime}
+              onWin={onWin}
+              onLoose={onLoose}
+            />
+            {hasTime && (
+              <Box display="flex" justifyContent="center">
                 <Timer
                   key="555"
                   gameRoomId={gameRoomId}
                   quizState={quizState}
                   overTime={overTime}
                 />
-              )}
-            </CardContent>
-          </Card>
-        </Grid2>
-        <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
-          <Card sx={{ display: "flex", justifyContent: "center" }}>
-            <CardContent>
-              {gameRoomId ? (
-                <Quiz
-                  queMultiplier={questionMultiplier}
-                  gameRoomId={gameRoomId}
-                  quizState={quizState}
-                  hasTime={hasTime}
-                  key="10"
-                  NumQues={15}
-                />
-              ) : null}
-            </CardContent>
-          </Card>
-        </Grid2>
-        <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
-          <Card
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "#282c34",
-            }}
-          >
-            <CardContent>
-              <Box>
-                <Typography color="white" fontWeight={600}>
-                  Welcome to Your Interactive Chat Room
-                </Typography>
-                <Divider variant="fullWidth" sx={{ color: "white" }} />
               </Box>
-              <ChatBox ChatRoomId={chatRoomId} key="1" />
-            </CardContent>
-          </Card>
-        </Grid2>
+            )}
+          </CardContent>
+        </Card>
       </Grid2>
-    </Box>
+      <Grid2 item size={{ xs: 12, sm: 12, md: 6 }}>
+        <Card
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "secondary.main",
+          }}
+        >
+          <CardContent>
+            {gameRoomId ? (
+              <Quiz
+                queMultiplier={questionMultiplier}
+                gameRoomId={gameRoomId}
+                quizState={quizState}
+                hasTime={hasTime}
+                key="10"
+                NumQues={15}
+              />
+            ) : null}
+          </CardContent>
+        </Card>
+      </Grid2>
+      <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+        <Card
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "secondary.main",
+          }}
+        >
+          <CardContent>
+            <Box>
+              <Typography color="white" fontWeight={600}>
+                Welcome to Your Interactive Chat Room
+              </Typography>
+              <Divider variant="fullWidth" sx={{ color: "white" }} />
+            </Box>
+            <ChatBox ChatRoomId={chatRoomId} key="1" />
+          </CardContent>
+        </Card>
+      </Grid2>
+    </Grid2>
   );
 }

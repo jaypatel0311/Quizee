@@ -71,7 +71,9 @@ export default function Leaderboard({
               </Typography>
             </>
           ) : (
-            "Better Luck Next Time"
+            <Typography display="flex" justifyContent="center">
+              Better Luck Next Time
+            </Typography>
           )}
         </Typography>
       )}
@@ -79,7 +81,7 @@ export default function Leaderboard({
         variant="h4"
         display="flex"
         justifyContent="center"
-        sx={{ fontWeight: "bold", marginBottom: 3, color: "#343a40" }}
+        sx={{ fontWeight: "bold", marginBottom: 3, color: "primary.main" }}
       >
         Leaderboard
       </Typography>

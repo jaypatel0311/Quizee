@@ -32,6 +32,29 @@ const theme = createTheme({
       },
     },
   },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        "& .MuiInputBase-root": {
+          color: "white", // Text color
+        },
+        "& .MuiInputLabel-root": {
+          color: "white", // Label color
+        },
+        "& .MuiOutlinedInput-root": {
+          "& fieldset": {
+            borderColor: "white", // Border color
+          },
+          "&:hover fieldset": {
+            borderColor: "white", // Border color on hover
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "white", // Border color when focused
+          },
+        },
+      },
+    },
+  },
 });
 
 function MyApp({ Component, pageProps }) {

@@ -65,14 +65,13 @@ export default function Join() {
           alignItems="center"
           sx={{
             height: "80vh",
-            backgroundColor: "#f5f5f5",
             padding: 2,
           }}
         >
           <Grid2 item xs={12} sm={8} md={4}>
             <Box
               sx={{
-                bgcolor: "white",
+                bgcolor: "secondary.main",
                 boxShadow: 3,
                 borderRadius: 2,
                 p: 4,
@@ -81,7 +80,7 @@ export default function Join() {
             >
               <Typography
                 variant="h4"
-                sx={{ fontWeight: "bold", color: "#343a40", marginBottom: 3 }}
+                sx={{ fontWeight: "bold", color: "white", marginBottom: 3 }}
               >
                 Join Game
               </Typography>
@@ -91,8 +90,23 @@ export default function Join() {
                 value={roomCodeInput}
                 onChange={(e) => setRoomCodeInput(e.target.value)}
                 sx={{
+                  "& .MuiInputBase-root": {
+                    color: "white", // Text color
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "white", // Label color
+                  },
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: "8px",
+                    "& fieldset": {
+                      borderColor: "white",
+                      borderRadius: "12px", // Border color
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "white", // Border color on hover
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "white", // Border color when focused
+                    },
                   },
                   marginBottom: 3,
                 }}
@@ -102,14 +116,11 @@ export default function Join() {
                 variant="contained"
                 sx={{
                   bgcolor: "primary",
-                  color: "white",
+                  color: "secondary.main",
                   fontWeight: "bold",
                   padding: "10px 16px",
                   textTransform: "none",
                   borderRadius: "8px",
-                  "&:hover": {
-                    bgcolor: "#218838",
-                  },
                 }}
                 onClick={() => {
                   JoinRoom(roomCodeInput);
@@ -142,7 +153,7 @@ export default function Join() {
             display="flex"
             justifyContent="center"
             alignItems="baseline"
-            sx={{ backgroundColor: "#f5f5f5", minHeight: "80vh", padding: 3 }}
+            sx={{ minHeight: "80vh", padding: 3 }}
           >
             <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
               <Card sx={{ display: "flex", justifyContent: "center" }}>

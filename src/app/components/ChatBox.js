@@ -63,13 +63,33 @@ export default function ChatBox({ ChatRoomId }) {
           : null}
       </Grid2>
       <Grid2 display={"flex"} alignItems={"center"} gap={1}>
-        <Grid2 item xs={10} sm={10} md={10} bgcolor={"wheat"} borderRadius={2}>
+        <Grid2 item xs={10} sm={10} md={10} borderRadius={2}>
           <TextField
             size="small"
             label="Message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             fullWidth
+            sx={{
+              "& .MuiInputBase-root": {
+                color: "white", // Text color
+              },
+              "& .MuiInputLabel-root": {
+                color: "white", // Label color
+              },
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "white",
+                  borderRadius: "12px", // Border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "white", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "white", // Border color when focused
+                },
+              },
+            }}
             onKeyPress={(e) => {
               if (e.code === "Enter") sendMessage();
             }}
@@ -86,8 +106,8 @@ export default function ChatBox({ ChatRoomId }) {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
-          bgcolor={"wheat"}
           onClick={sendMessage}
+          color={"primary.main"}
         >
           <SendIcon />
         </Grid2>
