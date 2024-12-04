@@ -78,7 +78,17 @@ export default function Casual() {
   };
 
   return (
-    <Grid2 container display="flex" justifyContent="center" alignItems="center">
+    <Grid2
+      sx={{
+        height: "80vh",
+        backgroundColor: "#f5f5f5",
+        padding: 2,
+      }}
+      container
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Grid2 size={{ xs: 12, md: 12, lg: 12 }} p={3}>
         <Typography
           display="flex"
@@ -89,19 +99,19 @@ export default function Casual() {
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
         </Typography>
-        {hasTime && (
-          <Timer
-            key="555"
-            gameRoomId={gameRoomId}
-            quizState={quizState}
-            overTime={overTime}
-          />
-        )}
       </Grid2>
       <Grid2 size={{ xs: 12, md: 12, lg: 3 }} p={3}>
         <Card>
           <CardContent>
             <Leaderbord gameRoomId={gameRoomId} timeBased={hasTime} />
+            {hasTime && (
+              <Timer
+                key="555"
+                gameRoomId={gameRoomId}
+                quizState={quizState}
+                overTime={overTime}
+              />
+            )}
           </CardContent>
         </Card>
       </Grid2>
@@ -118,10 +128,23 @@ export default function Casual() {
           </CardContent>
         </Card>
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 12, lg: 3 }} p={3}>
-        <Card>
+      <Grid2 item size={{ xs: 12, sm: 12, md: 3 }}>
+        <Card
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "#282c34",
+            borderRadius: 2,
+          }}
+        >
           <CardContent>
-            <ChatBox ChatRoomId={chatRoomId} key="1"></ChatBox>
+            <Box>
+              <Typography color="white" fontWeight={600}>
+                Welcome to Your Interactive Chat Room
+              </Typography>
+              <Divider variant="fullWidth" sx={{ color: "white" }} />
+            </Box>
+            <ChatBox ChatRoomId={chatRoomId}></ChatBox>
           </CardContent>
         </Card>
       </Grid2>

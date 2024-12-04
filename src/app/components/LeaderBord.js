@@ -1,8 +1,19 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getFirestore, doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../config/firebaseConfig";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
 
-export default function Leaderbord({
+export default function Leaderboard({
   gameRoomId,
   timeBased = true,
   onWin,
@@ -25,7 +36,7 @@ export default function Leaderbord({
       if ((await e.data().state) === "Ended") {
         setEnded(true);
         if (
-          playerData[0].id == auth.currentUser.uid ||
+          playerData[0].id === auth.currentUser.uid ||
           playerData[1].score === playerData[0].score
         ) {
           setWinner(true);
@@ -40,48 +51,73 @@ export default function Leaderbord({
   }, [gameRoomId, db]);
 
   return (
-    <div
-      style={{
-        margin: "7px",
-        textAlign: "center",
-      }}
-    >
-      {ended && <div>{winner ? "Winner" : "Better Luck Next Time"}</div>}
-      <h2>Leaderboard</h2>
-      <table
-        style={{
-          tableLayout: "fixed",
-          width: "300px",
-          padding: "3px",
-          textAlign: "center",
-          border: "1px solid black",
-        }}
+    <Box>
+      {ended && (
+        <Typography
+          variant="h6"
+          sx={{
+            color: winner ? "#28a745" : "#d32f2f",
+            fontWeight: "bold",
+            marginBottom: 2,
+          }}
+        >
+          {winner
+            ? "Congratulations! You are the Winner!"
+            : "Better Luck Next Time"}
+        </Typography>
+      )}
+      <Typography
+        variant="h4"
+        display="flex"
+        justifyContent="center"
+        sx={{ fontWeight: "bold", marginBottom: 3, color: "#343a40" }}
       >
-        <tbody>
-          <tr style={{ border: "1px solid black" }}>
-            <th style={{ borderRight: "1px solid black" }}>Name</th>
-            <th>Score</th>
-          </tr>
-          {data.map((e, idx) => {
-            return (
-              <tr style={{ border: "1px solid black" }}>
-                <td
-                  style={{
-                    width: "70px",
-                    height: "30px",
-                    borderRight: "1px solid black",
+        Leaderboard
+      </Typography>
+      <TableContainer
+        component={Paper}
+        elevation={3}
+        sx={{ maxWidth: 600, margin: "0 auto" }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
+              <TableCell
+                align="center"
+                sx={{ fontWeight: "bold", borderRight: "1px solid #ddd" }}
+              >
+                Name
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Score
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((e, idx) => (
+              <TableRow
+                key={idx}
+                sx={{
+                  "&:nth-of-type(odd)": { backgroundColor: "#f9f9f9" },
+                  "&:hover": { backgroundColor: "#e0f7fa" },
+                }}
+              >
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderRight: "1px solid #ddd",
                     textOverflow: "ellipsis",
                     overflow: "hidden",
                   }}
                 >
                   {e.name}
-                </td>
-                <td>{e.score}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                </TableCell>
+                <TableCell align="center">{e.score}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

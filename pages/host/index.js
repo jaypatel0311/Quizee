@@ -27,7 +27,6 @@ export default function Host() {
   const [time, setTime] = useState(15);
   const [NumQues, setNumQues] = useState(10);
   const dispatch = useDispatch();
-  const [loadTimer, setLoadTimer] = useState(false);
 
   //TO Create Room
   const MakeRoom = async () => {
@@ -85,11 +84,6 @@ export default function Host() {
               onChange={(e) => setNumQues(e.target.value)}
               fullWidth
               margin="normal"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "8px",
-                },
-              }}
             />
             <TextField
               label="Time per Question"
@@ -98,28 +92,12 @@ export default function Host() {
               onChange={(e) => setTime(e.target.value)}
               fullWidth
               margin="normal"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "8px",
-                },
-                marginBottom: 3,
-              }}
             />
             <Button
               variant="contained"
+              color="primary"
               onClick={MakeRoom}
               fullWidth
-              sx={{
-                bgcolor: "primary",
-                color: "white",
-                fontWeight: "bold",
-                padding: "10px 16px",
-                textTransform: "none",
-                borderRadius: "8px",
-                "&:hover": {
-                  bgcolor: "#218838",
-                },
-              }}
             >
               Create Room
             </Button>
@@ -155,7 +133,7 @@ export default function Host() {
                 <Timer
                   key="555"
                   gameRoomId={roomId}
-                  quizState={loadTimer}
+                  quizState={started}
                   overTime={time}
                 ></Timer>
               ) : (
@@ -174,9 +152,6 @@ export default function Host() {
                 hasTime={true}
                 NumQues={NumQues}
                 key="10"
-                loadTimer={(e) => {
-                  setLoadTimer(e);
-                }}
               ></Quiz>
               {started ? (
                 <></>

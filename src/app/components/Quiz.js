@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { auth, db } from "../config/firebaseConfig";
 import { GenrateQuestions } from "../utils/GenrateQuestions";
 import { useRouter } from "next/router";
+import _ from "lodash";
 import {
   Box,
   Button,
@@ -183,13 +184,16 @@ export default function Quiz({
           )}
         </div>
       ) : (
-        <div>
+        <Box display="flex" justifyContent="center">
           <Button
             variant="outlined"
             sx={{
               color: "#28a745",
               borderColor: "#28a745",
-              "&:hover": { backgroundColor: "primary", borderColor: "primary" },
+              "&:hover": {
+                backgroundColor: "primary",
+                borderColor: "primary",
+              },
               borderRadius: "24px",
               padding: "8px 24px",
               fontWeight: "bold",
@@ -201,7 +205,7 @@ export default function Quiz({
           >
             GO TO HOME
           </Button>
-        </div>
+        </Box>
       )}
     </div>
   );
