@@ -39,7 +39,11 @@ function ResponsiveAppBar() {
       position="static"
       sx={{ backgroundColor: "#1f2833" }}
     >
-      <Grid2 size={{ xl: 10, lg: 10, md: 10, xs: 10 }}>
+      <Grid2
+        size={{ xl: 10, lg: 10, md: 10, xs: 10 }}
+        display={"flex"}
+        justifyContent={"flex-start"}
+      >
         <Typography
           onClick={(e) => {
             router.push("/");
@@ -54,10 +58,9 @@ function ResponsiveAppBar() {
             fontFamily: "cursive",
             fontWeight: 700,
             letterSpacing: ".3rem",
-            color: "inherit",
             textDecoration: "none",
-            color: "#66FCF1",
           }}
+          color="primary"
         >
           Quizee
         </Typography>
