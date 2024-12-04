@@ -35,7 +35,6 @@ const LoginForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  console.log(auth, "auth");
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -74,10 +73,8 @@ const LoginForm = () => {
         // ...
       })
       .catch((error) => {
-        console.log(error.message, "error");
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("Error logging in:", errorCode, errorMessage);
         setAlert(true);
         dispatch(setOverlayLoading(false));
       });

@@ -68,8 +68,6 @@ export default function Casual() {
     };
   }, [gameRoomId]);
 
-  console.log("gameRoomId", gameRoomId);
-
   const onWin = async () => {
     // Update win stats in user document
     const userRef = doc(db, "users", auth.currentUser.uid);

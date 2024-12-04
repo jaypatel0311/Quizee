@@ -45,7 +45,6 @@ export default function Join() {
       const data = s.data();
       setTime(data.time);
       setQueNums(data.queNums.length / 5);
-      console.error(data);
       if (data.state === "Running") {
         setGameStarted(true);
       }

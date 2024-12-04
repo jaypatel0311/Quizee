@@ -6,8 +6,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { Box, Typography } from "@mui/material";
 
 export default function Timer({ overTime, quizState, gameRoomId }) {
-  console.log(quizState);
-
   const { time, start } = useTimer({
     initialTime: overTime,
     timerType: "DECREMENTAL",

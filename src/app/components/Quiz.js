@@ -68,7 +68,6 @@ export default function Quiz({
 
   useEffect(() => {
     if (quizData) {
-      console.warn(quizData);
       const currentData = quizData[currentQueNumber];
 
       setCurrentOptions(currentData.o);

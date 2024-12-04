@@ -32,7 +32,6 @@ export default async function MatchQueue(
     // if some rooms are available
     const gameRoomId = data.rooms[0].gameRoomId;
     // join room
-    console.log(data.rooms[0].gameRoomId);
     const chatRoomId = await JoinRoom(data.rooms[0].gameRoomId);
     const roomData = { gameRoomId, chatRoomId };
 

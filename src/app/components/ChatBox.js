@@ -15,7 +15,6 @@ export default function ChatBox({ ChatRoomId }) {
     const chatRoomRef = doc(db, "chatRooms", ChatRoomId);
     const unsub = onSnapshot(chatRoomRef, (snapshot) => {
       if (!snapshot.exists()) return;
-      console.log(snapshot.data(), "chatbox");
       setChats(snapshot.data().chats || []);
     });
 

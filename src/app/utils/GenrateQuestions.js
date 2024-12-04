@@ -4,15 +4,12 @@ import { auth, db } from "../config/firebaseConfig"; // Assuming db is already i
 export const questionTypes = ["CSE"];
 
 export const GenrateQuestions = async (questionNums) => {
-  console.log(questionNums, "questionNums");
   const questionsArr = [];
   for (let n = 0; n < questionNums.length; n++) {
-    console.log("in for loop");
     const QueType =
       questionTypes[
         Math.floor(n / (questionNums.length / questionTypes.length))
       ];
-    console.log(QueType, "QueType in GenrateQuestions");
     const questionRef = doc(
       db,
       `questions/all/${QueType}`,
@@ -26,6 +23,5 @@ export const GenrateQuestions = async (questionNums) => {
       console.error("No such document!");
     }
   }
-  console.log(questionsArr, "questionsArr");
   return questionsArr;
 };
