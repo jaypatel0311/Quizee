@@ -63,7 +63,7 @@ export default function Leaderboard({
         >
           {winner ? (
             <>
-              <Typography display="flex" justifyContent="center">
+              <Typography display="flex" justifyContent="center" pt={2}>
                 Congratulations!!
               </Typography>
               <Typography display="flex" justifyContent="center">
@@ -71,7 +71,7 @@ export default function Leaderboard({
               </Typography>
             </>
           ) : (
-            <Typography display="flex" justifyContent="center">
+            <Typography display="flex" justifyContent="center" pt={2}>
               Better Luck Next Time
             </Typography>
           )}
