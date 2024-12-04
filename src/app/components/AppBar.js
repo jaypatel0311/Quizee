@@ -8,7 +8,7 @@ import { app } from "../config/firebaseConfig";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import Utils from "../helpers/Utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logout } from "@mui/icons-material";
 import * as _ from "lodash";
 
@@ -18,6 +18,7 @@ function ResponsiveAppBar() {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [displayIcon, setDisplayIcon] = useState(true);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -28,9 +29,19 @@ function ResponsiveAppBar() {
 
   const logout = () => {
     auth.signOut();
-    router.push("/login");
     setAnchorEl(null);
+    router.push("/login");
   };
+
+  useEffect(() => {
+    if (_.includes(router.pathname, "/login")) {
+      setDisplayIcon(false);
+    } else if (_.includes(router.pathname, "/signup")) {
+      setDisplayIcon(false);
+    } else {
+      setDisplayIcon(true);
+    }
+  }, [router.pathname]);
 
   return (
     <Grid2
@@ -66,7 +77,7 @@ function ResponsiveAppBar() {
           Quizee
         </Typography>
       </Grid2>
-      {auth?.currentUser ? (
+      {displayIcon ? (
         <Grid2
           size={{ xl: 2, lg: 2, md: 2 }}
           display={"flex"}
