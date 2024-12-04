@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getFirestore, doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../config/firebaseConfig";
 import {
   Box,
@@ -61,9 +61,18 @@ export default function Leaderboard({
             marginBottom: 2,
           }}
         >
-          {winner
-            ? "Congratulations! You are the Winner!"
-            : "Better Luck Next Time"}
+          {winner ? (
+            <>
+              <Typography display="flex" justifyContent="center">
+                Congratulations!!
+              </Typography>
+              <Typography display="flex" justifyContent="center">
+                You are the Winner
+              </Typography>
+            </>
+          ) : (
+            "Better Luck Next Time"
+          )}
         </Typography>
       )}
       <Typography

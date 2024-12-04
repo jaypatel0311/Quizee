@@ -47,10 +47,8 @@ export default function Home() {
   }, [auth.onAuthStateChanged]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
-      </Container>
-    </ThemeProvider>
+    <Container>
+      {isauth ? <HomePage isauth={isauth} /> : <LoginForm />}
+    </Container>
   );
 }

@@ -81,7 +81,6 @@ export default function Casual() {
     <Grid2
       sx={{
         height: "80vh",
-        backgroundColor: "#f5f5f5",
         padding: 2,
       }}
       container
@@ -94,6 +93,7 @@ export default function Casual() {
           justifyContent="center"
           variant="h6"
           style={{ marginLeft: "15px" }}
+          color="primary"
         >
           Answer All {questionMultiplier * 5} questions Before Timer Runs Out To
           Win
