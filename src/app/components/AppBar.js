@@ -23,6 +23,9 @@ function ResponsiveAppBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
     auth.signOut();
     router.push("/login");
   };
@@ -106,7 +109,7 @@ function ResponsiveAppBar() {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={logout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
@@ -115,26 +118,6 @@ function ResponsiveAppBar() {
         </Menu>
       </Grid2>
     </Grid2>
-
-    // {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-
-    // {/* <Typography
-    //   variant="h5"
-    //   noWrap
-    //   component="a"
-    //   sx={{
-    //     mr: 2,
-    //     display: { xs: "flex", md: "none" },
-    //     flexGrow: 1,
-    //     fontFamily: "monospace",
-    //     fontWeight: 700,
-    //     letterSpacing: ".3rem",
-    //     color: "inherit",
-    //     textDecoration: "none",
-    //   }}
-    // >
-    //   Quizee
-    // </Typography> */}
   );
 }
 export default ResponsiveAppBar;
