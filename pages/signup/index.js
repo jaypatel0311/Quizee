@@ -22,12 +22,12 @@ import { extend, validateAll } from "indicative/validator";
 import Utils from "@/app/helpers/Utils";
 import { useDispatch } from "react-redux";
 import { setOverlayLoading } from "@/app/reducer/slices/storeDataSlice";
-import { setIsOverlayLoading } from "@/app/reducer/actions";
 
 const RegistrationForm = () => {
   const auth = getAuth();
   const router = useRouter();
   const dispatch = useDispatch();
+  const today = new Date().toISOString().split("T")[0];
 
   const iState = {
     username: "",
@@ -66,18 +66,6 @@ const RegistrationForm = () => {
       }
     });
   }, []);
-
-  // const handleSearch = (value) => {
-  //   let res = [];
-
-  //   if (!value || value.indexOf("@") >= 0) {
-  //     res = [];
-  //   } else {
-  //     res = ["gmail.com", "yahoo.com", "outlook.com"].map(
-  //       (domain) => `${value}@${domain}`
-  //     );
-  //   }
-  // };
 
   extend("validatePassword", {
     validate() {
@@ -120,11 +108,11 @@ const RegistrationForm = () => {
           updateProfile(result.user, {
             displayName: state.username,
           });
-          dispatch(setIsOverlayLoading(false));
+          dispatch(setOverlayLoading(false));
         } catch (error) {
           console.log(error);
         }
-        dispatch(setIsOverlayLoading(false));
+        dispatch(setOverlayLoading(false));
         router.push("/");
       })
       .catch((errors) => {
@@ -210,6 +198,9 @@ const RegistrationForm = () => {
           type="date"
           InputLabelProps={{
             shrink: true,
+          }}
+          inputProps={{
+            max: today,
           }}
           value={bday}
           onChange={(e) => setBday(e.target.value)}
